@@ -3,7 +3,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 
 let mainWindow;
 
-ipcMain.on('close-main-window', function(event, arg) {
+ipcMain.on('close-main-window', (event, arg) => {
   app.quit();
 });
 

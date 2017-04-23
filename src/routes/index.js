@@ -1,13 +1,15 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Home from '../components/home';
+import Toolbar from '../components/toolbar';
+import Home from '../containers/home';
+import About from '../containers/about';
 
 export default function Routes() {
   return (
-    <Route path="/" component={Home}>
+    <Route path="/" component={Toolbar}>
       <IndexRoute component={Home} />
-      {/* <Route path="about" component={About} />
-      <Route path="*" component={NotFound} status={404} /> */}
+      <Route path="home" component={Home} />
+      <Route path="about" component={About} />
     </Route>
   );
 }
