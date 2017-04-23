@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { PropTypes } from 'prop-types';
 import * as actions from '../actions';
+import Timer from '../components/timer';
 
 const mapStateToProps = (state) => {
   const select = {
@@ -37,6 +38,8 @@ class Home extends React.Component {
         <span>home</span>
         <button onClick={() => { this.myFunc(); }}>go to about</button>
         <Link to="/about">TO ABOUT</Link>
+        <br />
+        <Timer />
       </div>
     );
   }
