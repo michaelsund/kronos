@@ -9,13 +9,13 @@ ipcMain.on('close-main-window', (event, arg) => {
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    frame: false,
     width: 800,
     height: 600,
-    transparent: false,
-    frame: false
+    minWidth: 800,
+    minHeight: 600
   });
 
-  mainWindow.setMenu(null);
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   if (process.env.NODE_ENV === 'development') {

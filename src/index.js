@@ -13,8 +13,6 @@ const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);
 const history = syncHistoryWithStore(hashHistory, store);
 
-injectTapEventPlugin();
-
 const App = () => (
   <MuiThemeProvider>
     <Provider store={store}>
@@ -22,6 +20,8 @@ const App = () => (
     </Provider>
   </MuiThemeProvider>
 );
+
+injectTapEventPlugin();
 
 ReactDOM.render(
   <App />,

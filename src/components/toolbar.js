@@ -8,6 +8,7 @@ const ipc = window.require('electron').ipcRenderer;
 
 class ToolBar extends React.Component {
   closeApplication = () => {
+    console.log('closing');
     ipc.send('close-main-window');
   }
 
@@ -15,11 +16,14 @@ class ToolBar extends React.Component {
     return (
       <div>
         <AppBar
-          style={{ WebkitAppRegion: 'drag', boxShadow: 'none' }}
+          style={{ boxShadow: 'none' }}
           showMenuIconButton={false}
           title="Kronos"
+          titleStyle={{ WebkitAppRegion: 'drag' }}
           iconElementRight={
-            <IconButton onClick={() => { this.closeApplication(); }}>
+            <IconButton
+              onTouchTap={() => { this.closeApplication(); }}
+            >
               <NavigationClose />
             </IconButton>
           }

@@ -3,6 +3,7 @@ import { routeActions } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { PropTypes } from 'prop-types';
+import IconButton from 'material-ui/IconButton';
 import * as actions from '../actions';
 import Timer from '../components/timer';
 
