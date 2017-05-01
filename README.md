@@ -1,7 +1,6 @@
-## Running Dev Server (Development)
+## Developing
+Redux Devtools are for now set to not use localhost.
 ````
 $ npm run dev
 ````
-After waiting for the webpack package, refresh the program.
-
-Readme updates along with the projects progress.
+Refresh once webpack has bundled everything.

@@ -4,11 +4,16 @@ import devTools from 'remote-redux-devtools';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
+  // TODO fix local devtools setup
   const middleware = compose(
     process.env.NODE_ENV === 'development' ? devTools() : f => f,
   );
 
-  const store = createStore(rootReducer, initialState, middleware);
+  const store = createStore(
+    rootReducer,
+    initialState,
+    middleware
+  );
 
   if (process.env.NODE_ENV === 'development') {
     if (module.hot) {
