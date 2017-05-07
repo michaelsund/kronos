@@ -5,6 +5,8 @@ import Home from '../containers/home';
 import About from '../containers/about';
 
 export default function Routes() {
+  require('../assets/css/main.css');
+
   return (
     <Route path="/" component={ToolBar}>
       <IndexRoute component={Home} />

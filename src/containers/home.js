@@ -8,25 +8,30 @@ import * as actions from '../actions';
 import Timer from '../components/timer';
 
 const mapStateToProps = (state) => {
-  const select = {
-    homevars: state.home
+  const props = {
+    accounts: state.accounts
   };
-  return select;
+  return props;
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   const select = {
-//     onSetFetchedLists: lists => dispatch(
-//       actions.setFetchedLists(lists)
-//     )
-//   };
-//   return select;
-// };
+const mapDispatchToProps = (dispatch) => {
+  const props = {
+    onAddAccount: account => dispatch(
+      actions.addAccount(account)
+    )
+  };
+  return props;
+};
 
 class Home extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  static propTypes = {
+    router: PropTypes.object.isRequired,
+    // onAddAccount: PropTypes.func
+  }
+
+  componentDidMount() {
+    // this.props.onAddAccount({ name: 'test', other: true });
+  }
 
   myFunc = () => {
     console.log('yep');
@@ -36,18 +41,11 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <span>home</span>
-        <button onClick={() => { this.myFunc(); }}>go to about</button>
-        <Link to="/about">TO ABOUT</Link>
-        <br />
-        <Timer />
+        {/* <button onClick={() => { this.myFunc(); }}>go to about</button> */}
+        <Timer hourProgress />
       </div>
     );
   }
 }
 
-Home.propTypes = {
-  router: PropTypes.object.isRequired,
-};
-
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

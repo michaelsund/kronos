@@ -67,7 +67,7 @@ const webpackConfig = {
       {
         test: /\.(ttf|eot)(\?[\s\S]+)?$/,
         loader: 'file?name=fonts/[name].[ext]'
-      }
+      },
     ],
   },
   postcss: function () {

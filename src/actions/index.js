@@ -1,8 +1,8 @@
-export const TEST_STUFF = 'TEST_STUFF';
+export const ADD_ACCOUNT = 'ADD_ACCOUNT';
 
-export function testStuff(testvar) {
+export function addAccount(account) {
   return {
-    type: TEST_STUFF,
-    testvar
+    type: ADD_ACCOUNT,
+    account
   };
 }

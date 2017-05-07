@@ -6,7 +6,11 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 const ipc = window.require('electron').ipcRenderer;
 
-class ToolBar extends React.Component {
+export default class ToolBar extends React.Component {
+  static propTypes = {
+    children: PropTypes.element.isRequired
+  }
+
   closeApplication = () => {
     console.log('closing');
     ipc.send('close-main-window');
@@ -33,9 +37,3 @@ class ToolBar extends React.Component {
     );
   }
 }
-
-ToolBar.propTypes = {
-  children: PropTypes.element.isRequired
-};
-
-export default ToolBar;
