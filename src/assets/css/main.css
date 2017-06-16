@@ -25,3 +25,23 @@ a {
 a img {
   border: 0;
 }
+
+.container {
+  overflow: hidden;
+  position: relative;
+}
+
+.left {
+  padding-right: 300px;
+  margin: 10px;
+  margin-top: 75px;
+}
+
+.right {
+  width: 300px;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  margin-top: 75px;
+}

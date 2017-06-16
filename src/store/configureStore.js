@@ -5,8 +5,9 @@ import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
   // TODO fix local devtools setup
+  console.log(`local NODE_ENV is ${process.env.NODE_ENV}`);
   const middleware = compose(
-    process.env.NODE_ENV === 'development' ? devTools() : f => f,
+    process.env.NODE_ENV === 'development' ? devTools({ realtime: true, port: 8000 }) : f => f,
   );
 
   const store = createStore(

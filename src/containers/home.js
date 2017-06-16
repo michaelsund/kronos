@@ -4,8 +4,12 @@ import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { PropTypes } from 'prop-types';
 import IconButton from 'material-ui/IconButton';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
 import * as actions from '../actions';
 import Timer from '../components/timer';
+
+import styles from '../../src/assets/css/main.css';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -40,9 +44,22 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.container}>
         {/* <button onClick={() => { this.myFunc(); }}>go to about</button> */}
-        <Timer hourProgress />
+        <div className={styles.right}>
+          <span>right</span>
+        </div>
+        <div className={styles.left}>
+          <Paper zDepth={2}>
+            <Timer hourProgress />
+          </Paper>
+          <Paper zDepth={2}>
+            <Timer hourProgress />
+          </Paper>
+          <Paper zDepth={2}>
+            <Timer hourProgress />
+          </Paper>
+        </div>
       </div>
     );
   }

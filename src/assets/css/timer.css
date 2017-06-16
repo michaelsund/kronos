@@ -1,9 +1,16 @@
-.timerContainer {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
+.progressDiv {
+  padding-top: 20px;
 }
 
-.hourProgress {
-  padding-top: 20px;
+.icons {
+  color: #333 !important;
+}
+
+.timerText {
+  padding-top: 10px;
+  font-size: 30px;
+}
+
+.timerContainer {
+  margin: 15px;
 }

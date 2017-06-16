@@ -4,6 +4,8 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
+import styles from '../../src/assets/css/toolbar.css';
+
 const ipc = window.require('electron').ipcRenderer;
 
 export default class ToolBar extends React.Component {
@@ -20,7 +22,8 @@ export default class ToolBar extends React.Component {
     return (
       <div>
         <AppBar
-          style={{ boxShadow: 'none' }}
+          style={{ position: 'fixed' }}
+          className={styles.toolBar}
           showMenuIconButton={false}
           title="Kronos"
           titleStyle={{ WebkitAppRegion: 'drag' }}

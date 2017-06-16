@@ -35,7 +35,7 @@ class Timer extends React.Component {
     seconds: 0,
     account: '',
     activity: ''
-  }
+  };
 
   componentWillUnmount = () => {
     this.setState({ running: false });
@@ -84,15 +84,11 @@ class Timer extends React.Component {
   render() {
     return (
       <div className={styles.timerContainer}>
-        <TextField
-          floatingLabelText="Activity"
-          onChange={this.handleActivityChange}
-        />
-        <h2>
+        <p className={styles.timerText}>
           {(0 + this.state.hours.toString()).slice(-2)}:
           {(0 + this.state.minutes.toString()).slice(-2)}:
           {(0 + this.state.seconds.toString()).slice(-2)}
-        </h2>
+        </p>
         <FlatButton onClick={() => { this.startPauseTimer(); }}>
           {this.state.running ? (
             <span>Pause</span>
@@ -103,9 +99,15 @@ class Timer extends React.Component {
         <FlatButton onClick={() => { this.resetTimer(); }}>
           Reset
         </FlatButton>
-        <div className={styles.hourProgress}>
+        <div className={styles.progressDiv}>
           {this.props.hourProgress ? (
-            <LinearProgress min={0} max={60} mode="determinate" value={this.state.minutes} />
+            <LinearProgress
+              color="#333"
+              min={0}
+              max={60}
+              mode="determinate"
+              value={this.state.minutes}
+            />
           ) : (
             null
           )}
@@ -120,11 +122,15 @@ class Timer extends React.Component {
             return row;
           })}
         </SelectField>
+        <TextField
+          floatingLabelText="Activity"
+          onChange={this.handleActivityChange}
+        />
         <IconButton tooltip="Save">
-          <IconSave />
+          <IconSave className={styles.icons} />
         </IconButton>
         <IconButton tooltip="Delete">
-          <DeleteIcon />
+          <DeleteIcon className={styles.icons} />
         </IconButton>
       </div>
     );
