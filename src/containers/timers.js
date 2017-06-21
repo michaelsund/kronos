@@ -3,9 +3,10 @@ import { routeActions } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { PropTypes } from 'prop-types';
+import { Container, Row, Col } from 'react-grid-system';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
-import Paper from 'material-ui/Paper';
+// import Paper from 'material-ui/Paper';
 import * as actions from '../actions';
 import Timer from '../components/timer';
 
@@ -27,42 +28,31 @@ const mapDispatchToProps = (dispatch) => {
   return props;
 };
 
-class Home extends React.Component {
-  static propTypes = {
-    router: PropTypes.object.isRequired,
-    // onAddAccount: PropTypes.func
-  }
-
-  componentDidMount() {
-    // this.props.onAddAccount({ name: 'test', other: true });
-  }
-
-  myFunc = () => {
-    console.log('yep');
-    this.props.router.push('/about');
-  }
-
+class Timers extends React.Component {
   render() {
     return (
-      <div className={styles.container}>
-        {/* <button onClick={() => { this.myFunc(); }}>go to about</button> */}
-        <div className={styles.right}>
-          <span>right</span>
-        </div>
-        <div className={styles.left}>
-          <Paper zDepth={2}>
+      <Container>
+        <Row>
+          <Col sm={6}>
             <Timer hourProgress />
-          </Paper>
-          <Paper zDepth={2}>
+          </Col>
+          <Col sm={6}>
             <Timer hourProgress />
-          </Paper>
-          <Paper zDepth={2}>
+          </Col>
+          <Col sm={6}>
             <Timer hourProgress />
-          </Paper>
-        </div>
-      </div>
+          </Col>
+          <Col sm={6}>
+            <Timer hourProgress />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+Timers.propTypes = {
+  router: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timers);

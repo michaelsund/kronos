@@ -7,10 +7,11 @@
 }
 
 .timerText {
-  padding-top: 10px;
   font-size: 30px;
+  margin: 0px;
+  margin-left: 8px;
 }
 
-.timerContainer {
-  margin: 15px;
+.cards {
+  margin-bottom: 30px;
 }
