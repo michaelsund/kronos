@@ -3,14 +3,14 @@ import { PropTypes } from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import FontIcon from 'material-ui/FontIcon';
+import IconTimer from 'material-ui/svg-icons/image/timer';
+import FlatButton from 'material-ui/FlatButton';
+import IconFormatListBulleted from 'material-ui/svg-icons/editor/format-list-bulleted';
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import Paper from 'material-ui/Paper';
+import Dialog from 'material-ui/Dialog';
 
 import styles from '../../src/assets/css/toolbar.css';
-
-const recentsIcon = <FontIcon className="material-icons">restore</FontIcon>;
-const favoritesIcon = <FontIcon className="material-icons">favorite</FontIcon>;
 
 const ipc = window.require('electron').ipcRenderer;
 
@@ -18,8 +18,13 @@ export default class ToolBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: null
+      selectedIndex: null,
+      open: false
     };
+  }
+
+  closeDialog = () => {
+    this.setState({ open: false });
   }
 
   closeApplication = () => {
@@ -33,11 +38,16 @@ export default class ToolBar extends React.Component {
         this.props.router.push('/timers');
         break;
       case 1:
-        this.props.router.push('/accounts');
+        this.setState({ open: true });
         break;
       default:
 
     }
+  }
+
+  continueToAccounts = () => {
+    this.closeDialog();
+    this.props.router.push('/accounts');
   }
 
   render() {
@@ -66,15 +76,40 @@ export default class ToolBar extends React.Component {
           <BottomNavigation selectedIndex={this.state.selectedIndex}>
             <BottomNavigationItem
               label="Timers"
-              icon={recentsIcon}
+              icon={
+                <IconTimer />
+              }
               onTouchTap={() => { this.selectNav(0); }}
             />
             <BottomNavigationItem
               label="Accounts"
-              icon={favoritesIcon}
+              icon={
+                <IconFormatListBulleted />
+              }
               onTouchTap={() => { this.selectNav(1); }}
             />
           </BottomNavigation>
+          <Dialog
+            title="Attention!"
+            modal={false}
+            actions={
+              <div>
+                <FlatButton
+                  label="Cancel"
+                  onTouchTap={this.closeDialog}
+                />
+                <FlatButton
+                  label="Ok"
+                  onTouchTap={this.continueToAccounts}
+                />
+              </div>
+            }
+            open={this.state.open}
+          >
+            <span>
+              All timers will be saved and paused, you can resume them at any time.
+            </span>
+          </Dialog>
         </div>
       </div>
     );

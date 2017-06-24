@@ -7,15 +7,42 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import IconSave from 'material-ui/svg-icons/content/save';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import IconPause from 'material-ui/svg-icons/av/pause';
+import IconPlay from 'material-ui/svg-icons/av/play-arrow';
+import IconReplay from 'material-ui/svg-icons/av/replay';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { Container, Row, Col, ClearFix } from 'react-grid-system';
+import * as actions from '../actions';
 
 import styles from '../assets/css/timer.css';
 
 const mapStateToProps = (state) => {
   const props = {
-    accounts: state.accounts
+    accounts: state.accounts,
+    timers: state.timers
+  };
+  return props;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const props = {
+    onSetTime: data => dispatch(
+      actions.setTime(data)
+    ),
+    onSetTimeAccount: data => dispatch(
+      actions.setTimeAccount(data)
+    ),
+    onSetTimeActivity: data => dispatch(
+      actions.setTimeActivity(data)
+    ),
+    onSetStatus: data => dispatch(
+      actions.setStatus(data)
+    ),
+    onResetTime: timerIndex => dispatch(
+      actions.resetTime(timerIndex)
+    )
   };
   return props;
 };
@@ -23,120 +50,155 @@ const mapStateToProps = (state) => {
 class Timer extends React.Component {
   static timer = null;
 
-  state = {
-    staticSeconds: 0,
-    running: false,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    account: '',
-    activity: ''
-  };
-
   componentWillUnmount = () => {
     this.setState({ running: false });
     clearInterval(this.timer);
   }
 
   startPauseTimer = () => {
-    if (!this.state.running) {
-      this.setState({ running: true });
+    if (!this.props.timers[this.props.timerIndex].running) {
+      this.props.onSetStatus({
+        timerIndex: this.props.timerIndex,
+        running: true
+      });
       this.timer = setInterval(() => {
-        this.setState({ staticSeconds: this.state.staticSeconds + 1 });
-        if (this.state.minutes === 59) {
-          this.setState({ hours: this.state.hours + 1, minutes: 0 });
-        }
-        if (this.state.seconds === 59) {
-          this.setState({ minutes: this.state.minutes + 1, seconds: 0 });
-        } else {
-          this.setState({ seconds: this.state.seconds + 1 });
-        }
+        this.props.onSetTime({
+          timerIndex: this.props.timerIndex,
+          staticSeconds: this.props.timers[this.props.timerIndex].staticSeconds + 1
+        });
       }, 1000);
     } else {
       clearInterval(this.timer);
-      this.setState({ running: false });
+      this.props.onSetStatus({
+        timerIndex: this.props.timerIndex,
+        running: false
+      });
     }
   }
 
   resetTimer = () => {
     clearInterval(this.timer);
-    this.setState({
-      staticSeconds: 0,
-      running: false,
-      hours: 0,
-      minutes: 0,
-      seconds: 0
+    this.props.onSetStatus({
+      timerIndex: this.props.timerIndex,
+      running: false
     });
+    this.props.onResetTime(this.props.timerIndex);
   }
 
   handleAccountChange = (event, index, account) => {
-    this.setState({ account });
+    this.props.onSetTimeAccount({
+      timerIndex: this.props.timerIndex,
+      account
+    });
   }
 
   handleActivityChange = (event, activity) => {
-    this.setState({ activity });
+    this.props.onSetTimeActivity({
+      timerIndex: this.props.timerIndex,
+      activity
+    });
   }
 
   render() {
     return (
       <Card className={styles.cards}>
         <CardHeader
-          title={this.state.account.length > 0 ? (this.state.account) : ('No account')}
-          subtitle={this.state.activity.length > 0 ? (this.state.activity) : ('No activity')}
+          title={this.props.timers[this.props.timerIndex].account.name.length > 0 ? (this.props.timers[this.props.timerIndex].account.name) : ('No account')}
+          subtitle={this.props.timers[this.props.timerIndex].account.activity.length > 0 ? (this.props.timers[this.props.timerIndex].account.activity) : ('No activity')}
           actAsExpander
           showExpandableButton
         />
         <CardActions>
-          <p className={styles.timerText}>
-            {(0 + this.state.hours.toString()).slice(-2)}:
-            {(0 + this.state.minutes.toString()).slice(-2)}:
-            {(0 + this.state.seconds.toString()).slice(-2)}
-          </p>
+          <Container>
+            <Row>
+              <div className={styles.progressDiv}>
+                {this.props.hourProgress ? (
+                  <LinearProgress
+                    color="#333"
+                    min={0}
+                    max={60}
+                    mode="determinate"
+                    value={this.props.timers[this.props.timerIndex].minutes}
+                  />
+                ) : (
+                  null
+                )}
+              </div>
+            </Row>
+            <Row>
+              <Col sm={4}>
+                <p className={styles.timerText}>
+                  {(0 + this.props.timers[this.props.timerIndex].hours.toString()).slice(-2)}:
+                  {(0 + this.props.timers[this.props.timerIndex].minutes.toString()).slice(-2)}:
+                  {(0 + this.props.timers[this.props.timerIndex].seconds.toString()).slice(-2)}
+                </p>
+              </Col>
+              <Col sm={2} />
+              <Col sm={6} className={styles.buttonRow}>
+                {this.props.timers[this.props.timerIndex].running ? (
+                  <IconButton
+                    className={styles.playPauseButtons}
+                    tooltip="Pause"
+                    tooltipPosition="top-center"
+                    onClick={() => { this.startPauseTimer(); }}
+                  >
+                    <IconPause className={styles.icons} />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    className={styles.playPauseButtons}
+                    tooltip="Start"
+                    tooltipPosition="top-center"
+                    onClick={() => { this.startPauseTimer(); }}
+                  >
+                    <IconPlay className={styles.icons} />
+                  </IconButton>
+                )}
+                <IconButton
+                  tooltip="Reset"
+                  tooltipPosition="top-center"
+                  onClick={() => { this.resetTimer(); }}
+                >
+                  <IconReplay className={styles.icons} />
+                </IconButton>
+              </Col>
+            </Row>
+          </Container>
         </CardActions>
         <CardText expandable>
-          <FlatButton onClick={() => { this.startPauseTimer(); }}>
-            {this.state.running ? (
-              <span>Pause</span>
-            ) : (
-              <span>Start</span>
-            )}
-          </FlatButton>
-          <FlatButton onClick={() => { this.resetTimer(); }}>
-            Reset
-          </FlatButton>
-          <div className={styles.progressDiv}>
-            {this.props.hourProgress ? (
-              <LinearProgress
-                color="#333"
-                min={0}
-                max={60}
-                mode="determinate"
-                value={this.state.minutes}
+          <Container>
+            <Row>
+              <SelectField
+                floatingLabelText="Account"
+                value={this.props.timers[this.props.timerIndex].account.name}
+                onChange={this.handleAccountChange}
+              >
+                {this.props.accounts.map((account, i) => {
+                  const row = <MenuItem key={i} value={account.name} primaryText={account.name} />;
+                  return row;
+                })}
+              </SelectField>
+            </Row>
+          </Container>
+          <Container>
+            <Row>
+              <TextField
+                floatingLabelText="Activity"
+                value={this.props.timers[this.props.timerIndex].account.activity}
+                onChange={this.handleActivityChange}
               />
-            ) : (
-              null
-            )}
-          </div>
-          <SelectField
-            floatingLabelText="Account"
-            value={this.state.account}
-            onChange={this.handleAccountChange}
-          >
-            {this.props.accounts.map((account, i) => {
-              const row = <MenuItem key={i} value={account.name} primaryText={account.name} />;
-              return row;
-            })}
-          </SelectField>
-          <TextField
-            floatingLabelText="Activity"
-            onChange={this.handleActivityChange}
-          />
-          <IconButton tooltip="Save" tooltipPosition="top-center">
-            <IconSave className={styles.icons} />
-          </IconButton>
-          <IconButton tooltip="Delete" tooltipPosition="top-center">
-            <DeleteIcon className={styles.icons} />
-          </IconButton>
+            </Row>
+          </Container>
+          <Container className={styles.iconButtonsContainer}>
+            <Row>
+              <IconButton tooltip="Save" tooltipPosition="top-center">
+                <IconSave className={styles.icons} />
+              </IconButton>
+              <IconButton tooltip="Delete" tooltipPosition="top-center">
+                <DeleteIcon className={styles.icons} />
+              </IconButton>
+            </Row>
+          </Container>
         </CardText>
       </Card>
     );
@@ -145,8 +207,15 @@ class Timer extends React.Component {
 
 Timer.propTypes = {
   accounts: PropTypes.array.isRequired,
-  hourProgress: PropTypes.bool.isRequired
+  timers: PropTypes.array.isRequired,
+  hourProgress: PropTypes.bool.isRequired,
+  timerIndex: PropTypes.number.isRequired,
+  onSetTime: PropTypes.func,
+  onResetTime: PropTypes.func,
+  onSetStatus: PropTypes.func,
+  onSetTimeAccount: PropTypes.func,
+  onSetTimeActivity: PropTypes.func
 };
 
 
-export default connect(mapStateToProps, null)(Timer);
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);

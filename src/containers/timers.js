@@ -1,20 +1,19 @@
 import React from 'react';
-import { routeActions } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { Link, browserHistory } from 'react-router';
+// import { Link, browserHistory } from 'react-router';
 import { PropTypes } from 'prop-types';
 import { Container, Row, Col } from 'react-grid-system';
 import IconButton from 'material-ui/IconButton';
-import Divider from 'material-ui/Divider';
-// import Paper from 'material-ui/Paper';
 import * as actions from '../actions';
-import Timer from '../components/timer';
 
+import Timer from '../components/timer';
+import NewTimer from '../components/newtimer';
 import styles from '../../src/assets/css/main.css';
 
 const mapStateToProps = (state) => {
   const props = {
-    accounts: state.accounts
+    accounts: state.accounts,
+    timers: state.timers
   };
   return props;
 };
@@ -33,17 +32,19 @@ class Timers extends React.Component {
     return (
       <Container>
         <Row>
+          { this.props.timers.map((timer, i) => {
+            const result = (
+              <Col sm={6} key={i}>
+                <Timer
+                  hourProgress
+                  timerIndex={i}
+                />
+              </Col>
+            );
+            return result;
+          })}
           <Col sm={6}>
-            <Timer hourProgress />
-          </Col>
-          <Col sm={6}>
-            <Timer hourProgress />
-          </Col>
-          <Col sm={6}>
-            <Timer hourProgress />
-          </Col>
-          <Col sm={6}>
-            <Timer hourProgress />
+            <NewTimer />
           </Col>
         </Row>
       </Container>
@@ -52,7 +53,7 @@ class Timers extends React.Component {
 }
 
 Timers.propTypes = {
-  router: PropTypes.object.isRequired,
+  timers: PropTypes.array
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timers);

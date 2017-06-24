@@ -1,5 +1,5 @@
 .progressDiv {
-  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 .icons {
@@ -14,4 +14,9 @@
 
 .cards {
   margin-bottom: 30px;
+}
+
+.buttonRow {
+  position: absolute;
+  top: -6px;
 }
