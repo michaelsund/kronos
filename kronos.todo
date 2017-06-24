@@ -1,0 +1,13 @@
+
+☐ Navigate to Accounts should put all timers in paused.
+☐ Bottom navigation needs a top-border to clearly indicate
+  why its overlaping.
+☐ Delete should delete a timer with a confirmation dialog.
+☐ Save should save the current timer with the activity
+  to specified account.
+☐ Save a pdf document for specified account
+  with tickboxes for activites to include.
+☐ Realign stuff properly (buttons, text and so on)
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
