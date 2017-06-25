@@ -1,36 +1,6 @@
 import update from 'react-addons-update';
-import {
-  ADD_TIMER,
-  SET_TIME,
-  SET_STATUS,
-  SET_TIME_ACCOUNT,
-  SET_TIME_ACTIVITY
-} from '../actions';
 
-const initialState = [
-  {
-    account: {
-      name: '',
-      activity: ''
-    },
-    staticSeconds: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    running: false
-  },
-  {
-    account: {
-      name: 'acc2',
-      activity: 'testactivity2'
-    },
-    staticSeconds: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    running: false
-  },
-];
+const initialState = [];
 
 const calcTime = (staticSeconds) => {
   const hours = Math.floor(staticSeconds / (60 * 60));
@@ -43,7 +13,19 @@ const calcTime = (staticSeconds) => {
 
 const timers = (state = initialState, action) => {
   let calculatedTime = null;
+  let newTimers;
+  let tmpTimer;
   switch (action.type) {
+    case 'SET_ALL_PAUSED':
+      newTimers = state.map((timer) => {
+        tmpTimer = { ...timer, running: false };
+        return tmpTimer;
+      });
+      return newTimers;
+    case 'DELETE_TIMER':
+      return update(state, {
+        $splice: [[action.timerIndex, 1]]
+      });
     case 'SET_TIME_ACCOUNT':
       return update(state, {
         [action.data.timerIndex]: {

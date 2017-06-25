@@ -14,6 +14,7 @@ import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import { Container, Row, Col, ClearFix } from 'react-grid-system';
+import Dialog from 'material-ui/Dialog';
 import * as actions from '../actions';
 
 import styles from '../assets/css/timer.css';
@@ -42,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
     ),
     onResetTime: timerIndex => dispatch(
       actions.resetTime(timerIndex)
+    ),
+    onDeleteTimer: timerIndex => dispatch(
+      actions.deleteTimer(timerIndex)
     )
   };
   return props;
@@ -49,6 +53,13 @@ const mapDispatchToProps = (dispatch) => {
 
 class Timer extends React.Component {
   static timer = null;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      deleteDialogOpen: false
+    };
+  }
 
   componentWillUnmount = () => {
     this.setState({ running: false });
@@ -99,108 +110,158 @@ class Timer extends React.Component {
     });
   }
 
+  deleteTimer = () => {
+    this.props.onDeleteTimer(this.props.timerIndex);
+    this.setState({ deleteDialogOpen: false });
+  }
+
   render() {
     return (
-      <Card className={styles.cards}>
-        <CardHeader
-          title={this.props.timers[this.props.timerIndex].account.name.length > 0 ? (this.props.timers[this.props.timerIndex].account.name) : ('No account')}
-          subtitle={this.props.timers[this.props.timerIndex].account.activity.length > 0 ? (this.props.timers[this.props.timerIndex].account.activity) : ('No activity')}
-          actAsExpander
-          showExpandableButton
-        />
-        <CardActions>
-          <Container>
-            <Row>
-              <div className={styles.progressDiv}>
-                {this.props.hourProgress ? (
-                  <LinearProgress
-                    color="#333"
-                    min={0}
-                    max={60}
-                    mode="determinate"
-                    value={this.props.timers[this.props.timerIndex].minutes}
-                  />
-                ) : (
-                  null
-                )}
-              </div>
-            </Row>
-            <Row>
-              <Col sm={4}>
-                <p className={styles.timerText}>
-                  {(0 + this.props.timers[this.props.timerIndex].hours.toString()).slice(-2)}:
-                  {(0 + this.props.timers[this.props.timerIndex].minutes.toString()).slice(-2)}:
-                  {(0 + this.props.timers[this.props.timerIndex].seconds.toString()).slice(-2)}
-                </p>
-              </Col>
-              <Col sm={2} />
-              <Col sm={6} className={styles.buttonRow}>
-                {this.props.timers[this.props.timerIndex].running ? (
+      <div>
+        <Card className={styles.cards}>
+          <CardHeader
+            title={this.props.timers[this.props.timerIndex].account.name.length > 0 ? (this.props.timers[this.props.timerIndex].account.name) : ('Account')}
+            subtitle={this.props.timers[this.props.timerIndex].account.activity.length > 0 ? (this.props.timers[this.props.timerIndex].account.activity) : ('Activity')}
+            actAsExpander
+            showExpandableButton
+          />
+          <CardActions>
+            <Container>
+              <Row>
+                <div className={styles.progressDiv}>
+                  {this.props.hourProgress ? (
+                    <LinearProgress
+                      color="#333"
+                      min={0}
+                      max={60}
+                      mode="determinate"
+                      value={this.props.timers[this.props.timerIndex].minutes}
+                    />
+                  ) : (
+                    null
+                  )}
+                </div>
+              </Row>
+              <Row>
+                <Col sm={4}>
+                  <p className={styles.timerText}>
+                    {(0 + this.props.timers[this.props.timerIndex].hours.toString()).slice(-2)}:
+                    {(0 + this.props.timers[this.props.timerIndex].minutes.toString()).slice(-2)}:
+                    {(0 + this.props.timers[this.props.timerIndex].seconds.toString()).slice(-2)}
+                  </p>
+                </Col>
+                <Col sm={2} />
+                <Col sm={6} className={styles.buttonRow}>
+                  {this.props.timers[this.props.timerIndex].running ? (
+                    <IconButton
+                      className={styles.playPauseButtons}
+                      tooltip="Pause"
+                      tooltipPosition="top-center"
+                      onClick={() => { this.startPauseTimer(); }}
+                    >
+                      <IconPause className={styles.icons} />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      className={styles.playPauseButtons}
+                      tooltip="Start"
+                      tooltipPosition="top-center"
+                      onClick={() => { this.startPauseTimer(); }}
+                    >
+                      <IconPlay className={styles.icons} />
+                    </IconButton>
+                  )}
                   <IconButton
-                    className={styles.playPauseButtons}
-                    tooltip="Pause"
+                    tooltip="Reset"
                     tooltipPosition="top-center"
-                    onClick={() => { this.startPauseTimer(); }}
+                    onClick={() => { this.resetTimer(); }}
                   >
-                    <IconPause className={styles.icons} />
+                    <IconReplay className={styles.icons} />
                   </IconButton>
-                ) : (
-                  <IconButton
-                    className={styles.playPauseButtons}
-                    tooltip="Start"
-                    tooltipPosition="top-center"
-                    onClick={() => { this.startPauseTimer(); }}
-                  >
-                    <IconPlay className={styles.icons} />
-                  </IconButton>
-                )}
-                <IconButton
-                  tooltip="Reset"
-                  tooltipPosition="top-center"
-                  onClick={() => { this.resetTimer(); }}
+                </Col>
+              </Row>
+            </Container>
+          </CardActions>
+          <CardText expandable>
+            <Container>
+              <Row>
+                <SelectField
+                  floatingLabelFixed
+                  floatingLabelText="Account"
+                  value={this.props.timers[this.props.timerIndex].account.name}
+                  onChange={this.handleAccountChange}
                 >
-                  <IconReplay className={styles.icons} />
+                  {this.props.accounts.map((account, i) => {
+                    const row = (
+                      <MenuItem
+                        key={i}
+                        value={account.name}
+                        primaryText={account.name}
+                      />
+                    );
+                    return row;
+                  })}
+                </SelectField>
+              </Row>
+            </Container>
+            <Container>
+              <Row>
+                <TextField
+                  floatingLabelFixed
+                  floatingLabelText="Activity"
+                  value={this.props.timers[this.props.timerIndex].account.activity}
+                  onChange={this.handleActivityChange}
+                />
+              </Row>
+            </Container>
+            <Container className={styles.iconButtonsContainer}>
+              <Row>
+                <IconButton tooltip="Save" tooltipPosition="top-center">
+                  <IconSave className={styles.icons} />
                 </IconButton>
-              </Col>
-            </Row>
-          </Container>
-        </CardActions>
-        <CardText expandable>
-          <Container>
-            <Row>
-              <SelectField
-                floatingLabelText="Account"
-                value={this.props.timers[this.props.timerIndex].account.name}
-                onChange={this.handleAccountChange}
-              >
-                {this.props.accounts.map((account, i) => {
-                  const row = <MenuItem key={i} value={account.name} primaryText={account.name} />;
-                  return row;
-                })}
-              </SelectField>
-            </Row>
-          </Container>
-          <Container>
-            <Row>
-              <TextField
-                floatingLabelText="Activity"
-                value={this.props.timers[this.props.timerIndex].account.activity}
-                onChange={this.handleActivityChange}
+                <IconButton
+                  tooltip="Delete"
+                  tooltipPosition="top-center"
+                  onClick={() => { this.setState({ deleteDialogOpen: true }); }}
+                >
+                  <DeleteIcon className={styles.icons} />
+                </IconButton>
+              </Row>
+            </Container>
+          </CardText>
+        </Card>
+        <Dialog
+          title="Attention!"
+          modal={false}
+          actions={
+            <div>
+              <FlatButton
+                label="Cancel"
+                onTouchTap={() => { this.setState({ deleteDialogOpen: false }); }}
               />
-            </Row>
-          </Container>
-          <Container className={styles.iconButtonsContainer}>
-            <Row>
-              <IconButton tooltip="Save" tooltipPosition="top-center">
-                <IconSave className={styles.icons} />
-              </IconButton>
-              <IconButton tooltip="Delete" tooltipPosition="top-center">
-                <DeleteIcon className={styles.icons} />
-              </IconButton>
-            </Row>
-          </Container>
-        </CardText>
-      </Card>
+              <FlatButton
+                label="Ok"
+                onTouchTap={() => { this.deleteTimer(); }}
+              />
+            </div>
+          }
+          open={this.state.deleteDialogOpen}
+        >
+          <span>
+            Are you sure?<br />
+            {this.props.timers[this.props.timerIndex].account.name.length > 0 ? (
+              <p>
+                The timer for acccount
+                <b> {this.props.timers[this.props.timerIndex].account.name} </b>
+                with activity<b> {this.props.timers[this.props.timerIndex].account.activity} </b>
+                will be removed.
+              </p>
+            ) : (
+              <p>The timer will be stopped and removed.</p>
+            )}
+          </span>
+        </Dialog>
+      </div>
     );
   }
 }
@@ -214,7 +275,8 @@ Timer.propTypes = {
   onResetTime: PropTypes.func,
   onSetStatus: PropTypes.func,
   onSetTimeAccount: PropTypes.func,
-  onSetTimeActivity: PropTypes.func
+  onSetTimeActivity: PropTypes.func,
+  onDeleteTimer: PropTypes.func
 };
 
 

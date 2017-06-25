@@ -5,6 +5,15 @@ export const SET_TIME_ACCOUNT = 'SET_TIME_ACCOUNT';
 export const SET_TIME_ACTIVITY = 'SET_TIME_ACTIVITY';
 export const SET_STATUS = 'SET_STATUS';
 export const RESET_TIME = 'RESET_TIME';
+export const DELETE_TIMER = 'DELETE_TIMER';
+export const SET_ALL_PAUSED = 'SET_ALL_PAUSED';
+
+export const setAllPaused = () => {
+  const r = {
+    type: SET_ALL_PAUSED
+  };
+  return r;
+};
 
 export const addAccount = (account) => {
   const r = {
@@ -57,6 +66,14 @@ export const setTimeActivity = (data) => {
   const r = {
     type: SET_TIME_ACTIVITY,
     data
+  };
+  return r;
+};
+
+export const deleteTimer = (timerIndex) => {
+  const r = {
+    type: DELETE_TIMER,
+    timerIndex
   };
   return r;
 };

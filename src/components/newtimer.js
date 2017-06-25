@@ -9,6 +9,13 @@ import * as actions from '../actions';
 
 import styles from '../assets/css/newtimer.css';
 
+const mapStateToProps = (state) => {
+  const props = {
+    timers: state.timers
+  };
+  return props;
+};
+
 const mapDispatchToProps = (dispatch) => {
   const props = {
     onAddTimer: () => dispatch(
@@ -26,28 +33,32 @@ class NewTimer extends React.Component {
   render() {
     return (
       <Card className={styles.card}>
-        <Container>
-          <Row>
-            <Col sm={5} />
-            <Col sm={2}>
-              <IconButton
-                tooltip="New timer"
-                tooltipPosition="top-center"
-                onTouchTap={() => { this.addNewTimer(); }}
-              >
-                <IconAdd className={styles.icons} />
-              </IconButton>
-            </Col>
-            <Col sm={5} />
-          </Row>
-        </Container>
+        <div>
+          <IconButton
+            tooltip="Add a timer"
+            tooltipPosition="bottom-center"
+            onTouchTap={() => { this.addNewTimer(); }}
+          >
+            <IconAdd className={styles.icons} />
+          </IconButton>
+        </div>
+        <div className={styles.textDiv}>
+          <p className={styles.addText}>
+            {this.props.timers.length > 0 ? (
+              <span>Click the plus sign to add another timer.</span>
+            ) : (
+              <span>Looks like its empty here..<br />Add a timer to get started.</span>
+            )}
+          </p>
+        </div>
       </Card>
     );
   }
 }
 
 NewTimer.propTypes = {
-  onAddTimer: PropTypes.func
+  onAddTimer: PropTypes.func,
+  timers: PropTypes.array
 };
 
-export default connect(null, mapDispatchToProps)(NewTimer);
+export default connect(mapStateToProps, mapDispatchToProps)(NewTimer);

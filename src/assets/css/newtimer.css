@@ -1,5 +1,15 @@
 .card {
-  min-height: 142px;
+  height: 142px;
+}
+
+.textDiv {
+  height: 100%;
+  width: 100%;
+}
+
+.addText {
+  text-align: center;
+  vertical-align: middle;
 }
 
 .icons {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
@@ -9,12 +10,29 @@ import IconFormatListBulleted from 'material-ui/svg-icons/editor/format-list-bul
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
+import * as actions from '../actions';
 
 import styles from '../../src/assets/css/toolbar.css';
 
 const ipc = window.require('electron').ipcRenderer;
 
-export default class ToolBar extends React.Component {
+const mapStateToProps = (state) => {
+  const props = {
+    timers: state.timers
+  };
+  return props;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const props = {
+    onSetAllPaused: () => dispatch(
+      actions.setAllPaused()
+    )
+  };
+  return props;
+};
+
+class ToolBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,10 +56,29 @@ export default class ToolBar extends React.Component {
         this.props.router.push('/timers');
         break;
       case 1:
-        this.setState({ open: true });
+        this.checkTimersState();
         break;
       default:
 
+    }
+  }
+
+  checkTimersState = () => {
+    let allPaused = false;
+    if (this.props.timers.length > 0) {
+      for (const timer of this.props.timers) {
+        if (!timer.running) {
+          allPaused = true;
+        }
+      }
+      if (!allPaused) {
+        this.props.onSetAllPaused();
+        this.setState({ open: true });
+      } else {
+        this.props.router.push('/accounts');
+      }
+    } else {
+      this.props.router.push('/accounts');
     }
   }
 
@@ -59,7 +96,6 @@ export default class ToolBar extends React.Component {
             className={styles.toolBar}
             showMenuIconButton={false}
             title="Kronos"
-            titleStyle={{ WebkitAppRegion: 'drag' }}
             iconElementRight={
               <IconButton
                 onTouchTap={() => { this.closeApplication(); }}
@@ -73,22 +109,24 @@ export default class ToolBar extends React.Component {
           {this.props.children}
         </div>
         <div className={styles.footerMenu}>
-          <BottomNavigation selectedIndex={this.state.selectedIndex}>
-            <BottomNavigationItem
-              label="Timers"
-              icon={
-                <IconTimer />
-              }
-              onTouchTap={() => { this.selectNav(0); }}
-            />
-            <BottomNavigationItem
-              label="Accounts"
-              icon={
-                <IconFormatListBulleted />
-              }
-              onTouchTap={() => { this.selectNav(1); }}
-            />
-          </BottomNavigation>
+          <Paper zDepth={1}>
+            <BottomNavigation selectedIndex={this.state.selectedIndex}>
+              <BottomNavigationItem
+                label="Timers"
+                icon={
+                  <IconTimer />
+                }
+                onTouchTap={() => { this.selectNav(0); }}
+              />
+              <BottomNavigationItem
+                label="Accounts"
+                icon={
+                  <IconFormatListBulleted />
+                }
+                onTouchTap={() => { this.selectNav(1); }}
+              />
+            </BottomNavigation>
+          </Paper>
           <Dialog
             title="Attention!"
             modal={false}
@@ -107,7 +145,7 @@ export default class ToolBar extends React.Component {
             open={this.state.open}
           >
             <span>
-              All timers will be saved and paused, you can resume them at any time.
+              All timers will be paused, you can resume them at any time.
             </span>
           </Dialog>
         </div>
@@ -118,5 +156,9 @@ export default class ToolBar extends React.Component {
 
 ToolBar.propTypes = {
   children: PropTypes.element.isRequired,
-  router: PropTypes.object.isRequired
+  timers: PropTypes.array.isRequired,
+  router: PropTypes.object.isRequired,
+  onSetAllPaused: PropTypes.func
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToolBar);
