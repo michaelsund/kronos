@@ -1,12 +1,15 @@
 
-✔ Removing a timer should say the account name and activity if set. @done(2017-06-25 12:37)
+☐ Accounts view should have each account collapsable showing the activites logged for that account.
+☐ A Searchbar on top of accounts view searching for acccounts and activites.
+☐ The ability to edit a activity, renaming chaning the logged time, and moving to another account.
 ☐ Save should save the current timer with the activity to specified account.
-☐ Align the "Add new timer" card, with the rest of the cards, and give it a better design.
 ☐ Save a pdf document for specified account with tickboxes for activites to include.
 ☐ Realign stuff properly (buttons, text and so on)
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ Align the "Add new timer" card, with the rest of the cards, and give it a better design. @done(2017-06-26 12:35)
+  ✔ Removing a timer should say the account name and activity if set. @done(2017-06-25 12:37)
   ✔ Toolbar loses drag ability when selecting timers sometimes. @done(2017-06-25 10:43)
   ✔ If all timers are paused, navigating to accounts should not display a message @done(2017-06-25 11:58)
   ✔ Delete should delete a timer with a confirmation dialog. @done(2017-06-25 10:21)
