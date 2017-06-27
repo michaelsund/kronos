@@ -10,6 +10,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import EditActivity from './editactivity';
 
 import styles from '../assets/css/accountlist.css';
 
@@ -42,6 +43,13 @@ export default class AccountList extends React.Component {
   };
 
   render() {
+    const handleEditActivity = (act) => {
+      const res = (
+        <EditActivity activity={act} />
+      );
+      return res;
+    };
+
     return (
       <List>
         { this.props.accounts.map((account, i) => {
@@ -72,7 +80,11 @@ export default class AccountList extends React.Component {
                         `${act.hours} hours ${act.minutes} minutes, ${act.name}`
                       }
                       rightIconButton={
-                        <IconButton>
+                        <IconButton
+                          tooltip="Edit activity"
+                          tooltipPosition="top-center"
+                          onTouchTap={() => { handleEditActivity(act); }}
+                        >
                           <IconEdit className={styles.icons} />
                         </IconButton>
                       }

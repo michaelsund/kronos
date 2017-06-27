@@ -62,9 +62,8 @@ class AddAccount extends React.Component {
     return (
       <div>
         <IconButton
-          className={styles.addIconButton}
           tooltip="New account"
-          tooltipPosition="top-center"
+          tooltipPosition="bottom-center"
           onTouchTap={() => { this.openDialog(); }}
         >
           <IconAdd className={styles.icons} />
