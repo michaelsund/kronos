@@ -47,7 +47,7 @@ class NewTimer extends React.Component {
             {this.props.timers.length > 0 ? (
               <span>Click the plus sign to add another timer.</span>
             ) : (
-              <span>Looks like its empty here..<br />Add a timer to get started.</span>
+              <span>Sure is empty here..<br />Add a timer to get started.</span>
             )}
           </p>
         </div>

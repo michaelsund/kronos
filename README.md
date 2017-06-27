@@ -1,6 +1,6 @@
 ## Developing
-Redux Devtools are for now set to not use localhost.
 ````
+$ node remotedev.js
 $ npm run dev
 ````
 Refresh once webpack has bundled everything.

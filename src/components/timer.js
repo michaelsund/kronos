@@ -120,8 +120,8 @@ class Timer extends React.Component {
       <div>
         <Card className={styles.cards}>
           <CardHeader
-            title={this.props.timers[this.props.timerIndex].account.name.length > 0 ? (this.props.timers[this.props.timerIndex].account.name) : ('Account')}
-            subtitle={this.props.timers[this.props.timerIndex].account.activity.length > 0 ? (this.props.timers[this.props.timerIndex].account.activity) : ('Activity')}
+            title={this.props.timers[this.props.timerIndex].account.name.length > 0 ? (this.props.timers[this.props.timerIndex].account.name) : ('Account not assigned')}
+            subtitle={this.props.timers[this.props.timerIndex].account.activity.length > 0 ? (this.props.timers[this.props.timerIndex].account.activity) : ('No activity set')}
             actAsExpander
             showExpandableButton
           />
