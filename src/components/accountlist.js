@@ -5,6 +5,7 @@ import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 import { grey400, darkBlack, lightBlack } from 'material-ui/styles/colors';
+import IconEdit from 'material-ui/svg-icons/editor/mode-edit';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
@@ -19,6 +20,13 @@ const iconButtonElement = (
 );
 
 export default class AccountList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    };
+  }
+
   rightIconMenu = (
     <IconMenu iconButtonElement={iconButtonElement}>
       <MenuItem>Full report</MenuItem>
@@ -27,26 +35,55 @@ export default class AccountList extends React.Component {
     </IconMenu>
   );
 
+  handleNestedListToggle = (item) => {
+    this.setState({
+      open: item.state.open,
+    });
+  };
+
   render() {
     return (
       <List>
         { this.props.accounts.map((account, i) => {
           const res = (
-            <div key={i}>
-              <ListItem
-                // leftAvatar={<Avatar src="images/ok-128.jpg" />}
-                rightIconButton={this.rightIconMenu}
-                primaryText={account.name}
-                secondaryText={
-                  <p>
-                    <span style={{ color: darkBlack }}>Brunch this weekend?</span><br />
-                    Some other text
-                  </p>
-                }
-                secondaryTextLines={2}
-              />
-              <Divider />
-            </div>
+            <ListItem
+              key={i}
+              leftAvatar={
+                <Avatar>
+                  {account.name[0].toUpperCase()}
+                </Avatar>
+              }
+              // rightIconButton={this.rightIconMenu}
+              primaryText={account.name}
+              secondaryText={
+                <p>
+                  <span style={{ color: darkBlack }}>{account.description}</span><br />
+                  {account.additionalNote}
+                </p>
+              }
+              secondaryTextLines={2}
+              primaryTogglesNestedList
+              nestedItems={account.activities.length > 0 ? (
+                account.activities.map((act, x) => {
+                  const activity = (
+                    <ListItem
+                      key={x}
+                      primaryText={
+                        `${act.hours} hours ${act.minutes} minutes, ${act.name}`
+                      }
+                      rightIconButton={
+                        <IconButton>
+                          <IconEdit className={styles.icons} />
+                        </IconButton>
+                      }
+                    />
+                  );
+                  return activity;
+                })
+              ) : (
+                []
+              )}
+            />
           );
           return res;
         })}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -8,18 +8,46 @@ import TextField from 'material-ui/TextField';
 import { Container, Row, Col } from 'react-grid-system';
 import IconButton from 'material-ui/IconButton';
 import IconAdd from 'material-ui/svg-icons/content/add';
+import * as actions from '../actions';
 
 import styles from '../assets/css/addaccount.css';
+
+const mapDispatchToProps = (dispatch) => {
+  const props = {
+    onAddAccount: account => dispatch(
+      actions.addAccount(account)
+    )
+  };
+  return props;
+};
 
 class AddAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      account: {
-        name: ''
-      }
+      name: ''
     };
+  }
+
+  onNameChanged = (event, accountName) => {
+    this.setState({ name: accountName });
+  }
+
+  addAccount = () => {
+    if (this.state.name.length > 0) {
+      this.props.onAddAccount({
+        name: this.state.name[0].toUpperCase() + this.state.name.slice(1),
+        description: 'created',
+        additionalNote: 'created',
+        currency: '$',
+        debitOnHourStarted: false,
+        showDebitInReport: false,
+        activities: []
+      });
+      this.closeDialog();
+      this.setState({ name: '' });
+    }
   }
 
   openDialog = () => {
@@ -42,7 +70,7 @@ class AddAccount extends React.Component {
           <IconAdd className={styles.icons} />
         </IconButton>
         <Dialog
-          title="Dialog With Actions"
+          title="Add new account"
           modal={false}
           actions={
             <div>
@@ -52,7 +80,7 @@ class AddAccount extends React.Component {
               />
               <FlatButton
                 label="Submit"
-                onTouchTap={this.closeDialog}
+                onTouchTap={this.addAccount}
               />
             </div>
           }
@@ -62,9 +90,11 @@ class AddAccount extends React.Component {
             <Row>
               <Col sm={6}>
                 <TextField
-                  hintText="Company X"
+                  value={this.state.name}
+                  onChange={this.onNameChanged}
+                  hintText="Account name"
                   floatingLabelText="Account name"
-                  floatingLabelFixed
+                  errorText="This field is required"
                 />
               </Col>
             </Row>
@@ -76,6 +106,7 @@ class AddAccount extends React.Component {
 }
 
 AddAccount.propTypes = {
+  onAddAccount: PropTypes.func
 };
 
-export default connect(null, null)(AddAccount);
+export default connect(null, mapDispatchToProps)(AddAccount);

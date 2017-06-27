@@ -1,15 +1,16 @@
 
-☐ Accounts view should have each account collapsable showing the activites logged for that account.
-☐ A Searchbar on top of accounts view searching for acccounts and activites.
 ☐ The ability to edit a activity, renaming chaning the logged time, and moving to another account.
 ☐ Save should save the current timer with the activity to specified account.
 ☐ Save a pdf document for specified account with tickboxes for activites to include.
 ☐ Realign stuff properly (buttons, text and so on)
 ☐ Add currency option thats chooseable ex "kr, $, and so on", and a option to show it or not in timer.
 ☐ Saving all data on all calls, or just exit to either local json file for import/export, or in localStorage
+☐ Rewrite all css to sass, and inherit stuff such as icon colors throughout stylesheets.
+☐ Total spent time per account on accounts view.
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ Accounts view should have each account collapsable showing the activites logged for that account. @done(2017-06-27 15:03)
   ✔ Align the "Add new timer" card, with the rest of the cards, and give it a better design. @done(2017-06-26 12:35)
   ✔ Removing a timer should say the account name and activity if set. @done(2017-06-25 12:37)
   ✔ Toolbar loses drag ability when selecting timers sometimes. @done(2017-06-25 10:43)
