@@ -46,6 +46,9 @@ const mapDispatchToProps = (dispatch) => {
     ),
     onDeleteTimer: timerIndex => dispatch(
       actions.deleteTimer(timerIndex)
+    ),
+    onSaveTimer: (accountIndex, activity) => dispatch(
+      actions.saveTimer(accountIndex, activity)
     )
   };
   return props;
@@ -57,8 +60,15 @@ class Timer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      deleteDialogOpen: false
+      deleteDialogOpen: false,
+      timerWasSaved: false,
+      createdAt: null,
+      saveToAccountIndex: null
     };
+  }
+
+  componentWillMount = () => {
+    this.setState({ createdAt: new Date() });
   }
 
   componentWillUnmount = () => {
@@ -97,6 +107,7 @@ class Timer extends React.Component {
   }
 
   handleAccountChange = (event, index, account) => {
+    this.setState({ saveToAccountIndex: index });
     this.props.onSetTimeAccount({
       timerIndex: this.props.timerIndex,
       account
@@ -113,6 +124,23 @@ class Timer extends React.Component {
   deleteTimer = () => {
     this.props.onDeleteTimer(this.props.timerIndex);
     this.setState({ deleteDialogOpen: false });
+  }
+
+  saveTimer = () => {
+    if (this.state.saveToAccountIndex !== null) {
+      const timer = this.props.timers[this.props.timerIndex];
+      this.props.onSaveTimer(
+        this.state.saveToAccountIndex,
+        {
+          name: timer.account.activity,
+          staticSeconds: timer.staticSeconds,
+          hours: timer.hours,
+          minutes: timer.minutes,
+          seconds: timer.seconds
+        }
+      );
+      this.setState({ timerWasSaved: true });
+    }
   }
 
   render() {
@@ -216,16 +244,31 @@ class Timer extends React.Component {
             </Container>
             <Container className={styles.iconButtonsContainer}>
               <Row>
-                <IconButton tooltip="Save" tooltipPosition="top-center">
-                  <IconSave className={styles.icons} />
-                </IconButton>
-                <IconButton
-                  tooltip="Delete"
-                  tooltipPosition="top-center"
-                  onClick={() => { this.setState({ deleteDialogOpen: true }); }}
-                >
-                  <DeleteIcon className={styles.icons} />
-                </IconButton>
+                <Col sm={2} className={styles.colNoPad}>
+                  <IconButton
+                    tooltip="Save"
+                    tooltipPosition="top-center"
+                    onClick={() => { this.saveTimer(); }}
+                  >
+                    <IconSave className={styles.icons} />
+                  </IconButton>
+                </Col>
+                <Col sm={2} className={styles.colNoPad}>
+                  <IconButton
+                    tooltip="Delete"
+                    tooltipPosition="top-center"
+                    onClick={() => { this.setState({ deleteDialogOpen: true }); }}
+                  >
+                    <DeleteIcon className={styles.icons} />
+                  </IconButton>
+                </Col>
+                <Col sm={8}>
+                  { this.state.timerWasSaved ? (
+                    <p className={styles.timerSavedText}>Timer has been saved!</p>
+                  ) : (
+                    null
+                  )}
+                </Col>
               </Row>
             </Container>
           </CardText>
@@ -276,7 +319,8 @@ Timer.propTypes = {
   onSetStatus: PropTypes.func,
   onSetTimeAccount: PropTypes.func,
   onSetTimeActivity: PropTypes.func,
-  onDeleteTimer: PropTypes.func
+  onDeleteTimer: PropTypes.func,
+  onSaveTimer: PropTypes.func,
 };
 
 

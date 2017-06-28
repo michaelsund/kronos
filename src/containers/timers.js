@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { Link, browserHistory } from 'react-router';
 import { PropTypes } from 'prop-types';
 import { Container, Row, Col } from 'react-grid-system';
 import IconButton from 'material-ui/IconButton';

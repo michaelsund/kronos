@@ -1,3 +1,5 @@
+import update from 'react-addons-update';
+
 const initialState = [
   {
     name: 'Bacc1',
@@ -9,7 +11,7 @@ const initialState = [
     activities: [
       {
         name: 'testactivity1',
-        totalSeconds: 60,
+        staticSeconds: 60,
         hours: 0,
         minutes: 1,
         seconds: 0
@@ -26,14 +28,14 @@ const initialState = [
     activities: [
       {
         name: 'testactivity1',
-        totalSeconds: 60,
+        staticSeconds: 60,
         hours: 0,
         minutes: 1,
         seconds: 0
       },
       {
         name: 'testactivity2',
-        totalSeconds: 60,
+        staticSeconds: 60,
         hours: 0,
         minutes: 1,
         seconds: 0
@@ -57,10 +59,10 @@ const updateActivity = (
 ) => {
   // Sort
   const accs = sortAccountsByName(accounts);
-  // Calc totalSeconds
-  const totalSeconds = ((activity.hours * 60 * 60) + (activity.minutes * 60) + activity.seconds);
+  // Calc staticSeconds
+  const staticSeconds = ((activity.hours * 60 * 60) + (activity.minutes * 60) + activity.seconds);
   const newActivity = activity;
-  newActivity.totalSeconds = totalSeconds;
+  newActivity.staticSeconds = staticSeconds;
   if (!moveToAccountConfirm) {
     accs[accountIndex].activities[activityIndex] = newActivity;
   } else {
@@ -85,6 +87,12 @@ const accounts = (state = initialState, action) => {
         action.moveToAccountConfirm,
         action.moveToAccountIndex
       );
+    case 'SAVE_TIMER':
+      return update(state, {
+        [action.accountIndex]: {
+          activities: { $set: [...state[action.accountIndex].activities, action.activity] }
+        }
+      });
     default:
       return sortAccountsByName(state);
   }

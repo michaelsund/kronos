@@ -278,19 +278,12 @@ class AccountList extends React.Component {
                     const activity = (
                       <ListItem
                         key={x}
+                        onClick={() => { this.handleEditModal(i, x, act); }}
                         primaryText={act.hours > 0 ? (
                           `${act.name} for ${act.hours} hours and ${act.minutes} minutes`
                         ) : (
                           `${act.name} for ${act.minutes} minutes`
-                        )
-                        }
-                        rightIconButton={
-                          <IconButton
-                            onClick={() => { this.handleEditModal(i, x, act); }}
-                          >
-                            <IconEdit className={styles.icons} />
-                          </IconButton>
-                        }
+                        )}
                       />
                     );
                     return activity;

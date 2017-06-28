@@ -20,3 +20,13 @@
   position: absolute;
   top: -6px;
 }
+
+.timerSavedText {
+  position: relative;
+  top: 3px;
+}
+
+.colNoPad {
+  padding: 0px !important;
+  margin: 0px !important;
+}

@@ -13,11 +13,14 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store/configureStore';
 import routes from './routes';
 
+const primaryColor = orange500;
+
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: orange500,
-    primary2Color: orange500,
+    primary1Color: primaryColor,
+    primary2Color: primaryColor,
     primary3Color: grey400,
+    accent1Color: primaryColor,
   }
 });
 

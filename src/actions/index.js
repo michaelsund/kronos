@@ -8,6 +8,16 @@ export const RESET_TIME = 'RESET_TIME';
 export const DELETE_TIMER = 'DELETE_TIMER';
 export const SET_ALL_PAUSED = 'SET_ALL_PAUSED';
 export const EDIT_ACCOUNT_ACTIVITY = 'EDIT_ACCOUNT_ACTIVITY';
+export const SAVE_TIMER = 'SAVE_TIMER';
+
+export const saveTimer = (accountIndex, activity) => {
+  const r = {
+    type: SAVE_TIMER,
+    accountIndex,
+    activity
+  };
+  return r;
+};
 
 export const setAllPaused = () => {
   const r = {
