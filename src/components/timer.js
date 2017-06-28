@@ -142,6 +142,11 @@ class Timer extends React.Component {
       );
       this.setState({ timerWasSaved: true });
     }
+    clearInterval(this.timer);
+    this.props.onSetStatus({
+      timerIndex: this.props.timerIndex,
+      running: false
+    });
   }
 
   render() {

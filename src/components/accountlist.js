@@ -253,49 +253,55 @@ class AccountList extends React.Component {
             </Row>
           </Container>
         </Dialog>
-        <List>
-          { this.props.accounts.map((account, i) => {
-            const res = (
-              <ListItem
-                key={i}
-                leftAvatar={
-                  <Avatar>
-                    {account.name[0].toUpperCase()}
-                  </Avatar>
-                }
-                primaryText={account.name}
-                secondaryText={
-                  <p>
-                    <span style={{ color: darkBlack }}>{account.description}</span><br />
-                    {account.additionalNote}
-                  </p>
-                }
-                secondaryTextLines={2}
-                primaryTogglesNestedList
-                nestedItems={account.activities.length > 0 ? (
-                  account.activities.map((act, x) => {
-                    const activity = (
-                      <ListItem
-                        key={x}
-                        onClick={() => { this.handleEditModal(i, x, act); }}
-                        primaryText={act.hours > 0 ? (
-                          `${act.name} for ${act.hours} hours and ${act.minutes} minutes`
-                        ) : (
-                          `${act.name} for ${act.minutes} minutes`
-                        )}
-                        secondaryText={`Created at ${act.createdAt}`}
-                      />
-                    );
-                    return activity;
-                  })
-                ) : (
-                  []
-                )}
-              />
-            );
-            return res;
-          })}
-        </List>
+        { this.props.accounts.length > 0 ? (
+          <List>
+            { this.props.accounts.map((account, i) => {
+              const res = (
+                <ListItem
+                  key={i}
+                  leftAvatar={
+                    <Avatar>
+                      {account.name[0].toUpperCase()}
+                    </Avatar>
+                  }
+                  primaryText={account.name}
+                  secondaryText={
+                    <p>
+                      <span style={{ color: darkBlack }}>{account.description}</span><br />
+                      {account.additionalNote}
+                    </p>
+                  }
+                  secondaryTextLines={2}
+                  primaryTogglesNestedList
+                  nestedItems={account.activities.length > 0 ? (
+                    account.activities.map((act, x) => {
+                      const activity = (
+                        <ListItem
+                          key={x}
+                          onClick={() => { this.handleEditModal(i, x, act); }}
+                          primaryText={act.hours > 0 ? (
+                            `${act.name} for ${act.hours} hours and ${act.minutes} minutes`
+                          ) : (
+                            `${act.name} for ${act.minutes} minutes`
+                          )}
+                          secondaryText={`Created at ${act.createdAt}`}
+                        />
+                      );
+                      return activity;
+                    })
+                  ) : (
+                    []
+                  )}
+                />
+              );
+              return res;
+            })}
+          </List>
+        ) : (
+          <div className={styles.accountsEmptyText}>
+            Oh dear, no accounts yet? better create one!
+          </div>
+        )}
       </div>
     );
   }

@@ -1,3 +1,7 @@
 .icons {
   color: #333 !important;
 }
+
+.accountsEmptyText {
+  padding: 15px;
+}

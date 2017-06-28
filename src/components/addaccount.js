@@ -89,11 +89,10 @@ class AddAccount extends React.Component {
             <Row>
               <Col sm={6}>
                 <TextField
+                  autoFocus
                   value={this.state.name}
                   onChange={this.onNameChanged}
-                  hintText="Account name"
                   floatingLabelText="Account name"
-                  errorText="This field is required"
                 />
               </Col>
             </Row>
