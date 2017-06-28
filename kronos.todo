@@ -1,7 +1,5 @@
 
 ☐ On edit, able to move activity to other account.
-☐ The close button does not work on windows..
-
 ☐ Decide if input required prop should be used on TextInput components, or if theres a better way to validate input.
 ☐ Theres gotta be a better way to use the editActivity component than setting the state all the time (also have some input validation, no minus and only numbers).
 ☐ Save should save the current timer with the activity to specified account.
@@ -9,9 +7,11 @@
 ☐ Saving data on all calls, or just exit to either local json file for import/export, or in localStorage
 ☐ Rewrite all css to sass, and inherit stuff such as icon colors throughout stylesheets.
 ☐ Total spent time per account on accounts view.
+✔ Minimize toolbar button. @done(2017-06-28 13:29)
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ The close button does not work on windows.. @done(2017-06-28 13:06)
   ✔ The ability to edit a activity, renaming chaning the logged time. @done(2017-06-28 11:30)
   ✔ Add currency option thats chooseable ex "kr, $, and so on", and a option to show it or not in timer. @done(2017-06-27 20:42)
   ✔ Accounts view should have each account collapsable showing the activites logged for that account. @done(2017-06-27 15:03)
