@@ -136,7 +136,8 @@ class Timer extends React.Component {
           staticSeconds: timer.staticSeconds,
           hours: timer.hours,
           minutes: timer.minutes,
-          seconds: timer.seconds
+          seconds: timer.seconds,
+          createdAt: this.state.createdAt
         }
       );
       this.setState({ timerWasSaved: true });

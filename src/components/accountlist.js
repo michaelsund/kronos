@@ -263,7 +263,6 @@ class AccountList extends React.Component {
                     {account.name[0].toUpperCase()}
                   </Avatar>
                 }
-                // rightIconButton={this.rightIconMenu}
                 primaryText={account.name}
                 secondaryText={
                   <p>
@@ -284,6 +283,7 @@ class AccountList extends React.Component {
                         ) : (
                           `${act.name} for ${act.minutes} minutes`
                         )}
+                        secondaryText={`Created at ${act.createdAt}`}
                       />
                     );
                     return activity;

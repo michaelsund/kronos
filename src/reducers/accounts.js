@@ -1,48 +1,6 @@
 import update from 'react-addons-update';
 
-const initialState = [
-  {
-    name: 'Bacc1',
-    description: 'my first landed customer!',
-    additionalNote: 'Contact is James Jameson',
-    currency: 'kr',
-    debitOnHourStarted: true,
-    showDebitInReport: true,
-    activities: [
-      {
-        name: 'testactivity1',
-        staticSeconds: 60,
-        hours: 0,
-        minutes: 1,
-        seconds: 0
-      }
-    ]
-  },
-  {
-    name: 'Cacc1',
-    description: 'my first landed customer!',
-    additionalNote: 'Contact is James Jameson',
-    currency: 'kr',
-    debitOnHourStarted: true,
-    showDebitInReport: true,
-    activities: [
-      {
-        name: 'testactivity1',
-        staticSeconds: 60,
-        hours: 0,
-        minutes: 1,
-        seconds: 0
-      },
-      {
-        name: 'testactivity2',
-        staticSeconds: 60,
-        hours: 0,
-        minutes: 1,
-        seconds: 0
-      }
-    ]
-  }
-];
+const initialState = [];
 
 const sortAccountsByName = (accounts) => {
   const sorted = accounts.sort((a, b) => a.name.localeCompare(b.name));
