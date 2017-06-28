@@ -7,6 +7,7 @@ export const SET_STATUS = 'SET_STATUS';
 export const RESET_TIME = 'RESET_TIME';
 export const DELETE_TIMER = 'DELETE_TIMER';
 export const SET_ALL_PAUSED = 'SET_ALL_PAUSED';
+export const EDIT_ACCOUNT_ACTIVITY = 'EDIT_ACCOUNT_ACTIVITY';
 
 export const setAllPaused = () => {
   const r = {
@@ -74,6 +75,16 @@ export const deleteTimer = (timerIndex) => {
   const r = {
     type: DELETE_TIMER,
     timerIndex
+  };
+  return r;
+};
+
+export const editAccountActivity = (accountIndex, activityIndex, activity) => {
+  const r = {
+    type: EDIT_ACCOUNT_ACTIVITY,
+    accountIndex,
+    activityIndex,
+    activity
   };
   return r;
 };
