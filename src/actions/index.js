@@ -79,12 +79,20 @@ export const deleteTimer = (timerIndex) => {
   return r;
 };
 
-export const editAccountActivity = (accountIndex, activityIndex, activity) => {
+export const editAccountActivity = (
+  accountIndex,
+  activityIndex,
+  activity,
+  moveToAccountConfirm,
+  moveToAccountIndex
+) => {
   const r = {
     type: EDIT_ACCOUNT_ACTIVITY,
     accountIndex,
     activityIndex,
-    activity
+    activity,
+    moveToAccountConfirm,
+    moveToAccountIndex
   };
   return r;
 };

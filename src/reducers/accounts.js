@@ -47,15 +47,26 @@ const sortAccountsByName = (accounts) => {
   return sorted;
 };
 
-const updateActivity = (accountIndex, activityIndex, activity, accounts) => {
+const updateActivity = (
+  accountIndex,
+  activityIndex,
+  activity,
+  accounts,
+  moveToAccountConfirm,
+  moveToAccountIndex
+) => {
   // Sort
   const accs = sortAccountsByName(accounts);
   // Calc totalSeconds
   const totalSeconds = ((activity.hours * 60 * 60) + (activity.minutes * 60) + activity.seconds);
   const newActivity = activity;
   newActivity.totalSeconds = totalSeconds;
-  // Updated and return the new accounts array
-  accs[accountIndex].activities[activityIndex] = newActivity;
+  if (!moveToAccountConfirm) {
+    accs[accountIndex].activities[activityIndex] = newActivity;
+  } else {
+    accs[accountIndex].activities.pop(activityIndex);
+    accs[moveToAccountIndex].activities.unshift(newActivity);
+  }
   return accs;
 };
 
@@ -70,7 +81,9 @@ const accounts = (state = initialState, action) => {
         action.accountIndex,
         action.activityIndex,
         action.activity,
-        state
+        state,
+        action.moveToAccountConfirm,
+        action.moveToAccountIndex
       );
     default:
       return sortAccountsByName(state);
