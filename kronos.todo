@@ -1,7 +1,7 @@
 ☐ Total spent time per account on accounts view.
+☐ Saving data on all calls, or just exit to either local json file for import/export, or in localStorage
 ☐ Decide if input required prop should be used on TextInput components, or if theres a better way to validate input.
 ☐ Save a pdf document for specified account with tickboxes for activites to include.
-☐ Saving data on all calls, or just exit to either local json file for import/export, or in localStorage
 
 If it feels necessary
 ☐ Rewrite all css to sass, and inherit stuff such as icon colors throughout stylesheets.
