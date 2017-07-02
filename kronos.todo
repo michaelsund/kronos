@@ -1,6 +1,7 @@
 
+☐ Timer component has a problem with saveToAccountIndex not being saved in redux
+  so its null when navigating back and the timer cannot be saved, fix so that its passed to timers in redux just like name.
 ☐ When a timer is saved, you should'nt be able to start it again.
-
 ☐ Per account on creation add more data like currency, show currency on export and such properties.
 ☐ Total spent time per account on accounts view.
 ☐ Saving data on all calls, or just exit to either local json file for import/export, or in localStorage

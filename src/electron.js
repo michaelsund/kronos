@@ -20,6 +20,9 @@ function createWindow() {
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
+    BrowserWindow.addDevToolsExtension(
+      'C:\\Users\\michael\\AppData\\Roaming\\Electron\\extensions\\fmkadmapgofadopljbjfkapdkoienihi'
+    );
   }
 
   mainWindow.on('closed', () => {
