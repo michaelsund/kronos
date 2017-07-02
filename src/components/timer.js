@@ -71,6 +71,13 @@ class Timer extends React.Component {
     this.setState({ createdAt: new Date() });
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    if (!nextProps.timers[this.props.timerIndex].running) {
+      // Pause timer, we got not running from redux store.
+      clearInterval(this.timer);
+    }
+  }
+
   componentWillUnmount = () => {
     this.setState({ running: false });
     clearInterval(this.timer);
@@ -127,26 +134,28 @@ class Timer extends React.Component {
   }
 
   saveTimer = () => {
-    if (this.state.saveToAccountIndex !== null) {
-      const timer = this.props.timers[this.props.timerIndex];
-      this.props.onSaveTimer(
-        this.state.saveToAccountIndex,
-        {
-          name: timer.account.activity,
-          staticSeconds: timer.staticSeconds,
-          hours: timer.hours,
-          minutes: timer.minutes,
-          seconds: timer.seconds,
-          createdAt: this.state.createdAt
-        }
-      );
-      this.setState({ timerWasSaved: true });
+    const timer = this.props.timers[this.props.timerIndex];
+    if (timer.account.name && timer.account.activity) {
+      if (this.state.saveToAccountIndex !== null) {
+        this.props.onSaveTimer(
+          this.state.saveToAccountIndex,
+          {
+            name: timer.account.activity,
+            staticSeconds: timer.staticSeconds,
+            hours: timer.hours,
+            minutes: timer.minutes,
+            seconds: timer.seconds,
+            createdAt: this.state.createdAt
+          }
+        );
+        this.setState({ timerWasSaved: true });
+      }
+      clearInterval(this.timer);
+      this.props.onSetStatus({
+        timerIndex: this.props.timerIndex,
+        running: false
+      });
     }
-    clearInterval(this.timer);
-    this.props.onSetStatus({
-      timerIndex: this.props.timerIndex,
-      running: false
-    });
   }
 
   render() {

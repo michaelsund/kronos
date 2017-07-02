@@ -27,6 +27,11 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class Timers extends React.Component {
+  test = () => {
+    console.log('test');
+  };
+
+
   render() {
     return (
       <Container>

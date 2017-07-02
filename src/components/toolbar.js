@@ -72,7 +72,7 @@ class ToolBar extends React.Component {
         }
       }
       if (!allPaused) {
-        this.props.onSetAllPaused();
+        // Not all timers are paused, ask if its ok to pause.
         this.setState({ open: true });
       } else {
         this.props.router.push('/accounts');
@@ -83,6 +83,7 @@ class ToolBar extends React.Component {
   }
 
   continueToAccounts = () => {
+    this.props.onSetAllPaused();
     this.closeDialog();
     this.props.router.push('/accounts');
   }

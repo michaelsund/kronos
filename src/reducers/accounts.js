@@ -1,6 +1,16 @@
 import update from 'react-addons-update';
 
-const initialState = [];
+const initialState = [
+  {
+    name: 'TestAccount',
+    description: 'created',
+    additionalNote: 'created',
+    currency: '$',
+    debitOnHourStarted: false,
+    showDebitInReport: false,
+    activities: []
+  }
+];
 
 const sortAccountsByName = (accounts) => {
   const sorted = accounts.sort((a, b) => a.name.localeCompare(b.name));
