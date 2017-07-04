@@ -30,7 +30,8 @@ const timers = (state = initialState, action) => {
       return update(state, {
         [action.data.timerIndex]: {
           account: {
-            name: { $set: action.data.account }
+            name: { $set: action.data.account },
+            accountIndex: { $set: action.data.accountIndex }
           }
         }
       });

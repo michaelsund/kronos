@@ -10,10 +10,10 @@ export const SET_ALL_PAUSED = 'SET_ALL_PAUSED';
 export const EDIT_ACCOUNT_ACTIVITY = 'EDIT_ACCOUNT_ACTIVITY';
 export const SAVE_TIMER = 'SAVE_TIMER';
 
-export const saveTimer = (accountIndex, activity) => {
+export const saveTimer = (accountId, activity) => {
   const r = {
     type: SAVE_TIMER,
-    accountIndex,
+    accountId,
     activity
   };
   return r;

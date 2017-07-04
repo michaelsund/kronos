@@ -114,9 +114,9 @@ class Timer extends React.Component {
   }
 
   handleAccountChange = (event, index, account) => {
-    this.setState({ saveToAccountIndex: index });
     this.props.onSetTimeAccount({
       timerIndex: this.props.timerIndex,
+      accountIndex: index,
       account
     });
   }
@@ -136,9 +136,9 @@ class Timer extends React.Component {
   saveTimer = () => {
     const timer = this.props.timers[this.props.timerIndex];
     if (timer.account.name && timer.account.activity) {
-      if (this.state.saveToAccountIndex !== null) {
+      if (this.props.timers[this.props.timerIndex].account.id !== null) {
         this.props.onSaveTimer(
-          this.state.saveToAccountIndex,
+          this.props.timers[this.props.timerIndex].account.id,
           {
             name: timer.account.activity,
             staticSeconds: timer.staticSeconds,
@@ -149,12 +149,12 @@ class Timer extends React.Component {
           }
         );
         this.setState({ timerWasSaved: true });
+        clearInterval(this.timer);
+        this.props.onSetStatus({
+          timerIndex: this.props.timerIndex,
+          running: false
+        });
       }
-      clearInterval(this.timer);
-      this.props.onSetStatus({
-        timerIndex: this.props.timerIndex,
-        running: false
-      });
     }
   }
 

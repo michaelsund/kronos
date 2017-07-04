@@ -2,7 +2,28 @@ import update from 'react-addons-update';
 
 const initialState = [
   {
-    name: 'TestAccount',
+    id: 'a1zxsgcps',
+    name: 'Test',
+    description: 'created',
+    additionalNote: 'created',
+    currency: '$',
+    debitOnHourStarted: false,
+    showDebitInReport: false,
+    activities: []
+  },
+  {
+    id: '25p73ckpy',
+    name: 'Test2',
+    description: 'created',
+    additionalNote: 'created',
+    currency: '$',
+    debitOnHourStarted: false,
+    showDebitInReport: false,
+    activities: []
+  },
+  {
+    id: '97ekc3j5a',
+    name: 'Test3',
     description: 'created',
     additionalNote: 'created',
     currency: '$',
@@ -40,13 +61,23 @@ const updateActivity = (
   return accs;
 };
 
+const findAccountById = (accounts, accountId) => {
+  let accountIndex = null;
+  for (const [index, value] of accounts.entries()) {
+    if (value.id === accountId) {
+      console.log(`found ${accountId} at ${index}`);
+      accountIndex = index;
+    }
+  }
+  return accountIndex;
+};
+
 const accounts = (state = initialState, action) => {
+  // let accountIndex = null;
   switch (action.type) {
     case 'ADD_ACCOUNT':
       return sortAccountsByName(Object([...state, action.account]));
     case 'EDIT_ACCOUNT_ACTIVITY':
-      console.log(`accountIndex: ${action.accountIndex} activityIndex: ${action.activityIndex}`);
-      console.log(`activity: ${JSON.stringify(action.activity)}`);
       return updateActivity(
         action.accountIndex,
         action.activityIndex,
@@ -56,11 +87,14 @@ const accounts = (state = initialState, action) => {
         action.moveToAccountIndex
       );
     case 'SAVE_TIMER':
-      return update(state, {
-        [action.accountIndex]: {
-          activities: { $set: [...state[action.accountIndex].activities, action.activity] }
-        }
-      });
+      // Search for account ID and add timer/activity to it
+      findAccountById(state, action.accountId);
+      // return update(state, {
+      //   [action.accountIndex]: {
+      //     activities: { $set: [...state[accountIndex].activities, action.activity] }
+      //   }
+      // });
+      return state;
     default:
       return sortAccountsByName(state);
   }

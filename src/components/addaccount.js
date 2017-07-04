@@ -34,9 +34,15 @@ class AddAccount extends React.Component {
     this.setState({ name: accountName });
   }
 
+  generateAccountId = () => {
+    const id = Math.random().toString(36).substr(2, 9);
+    return id;
+  }
+
   addAccount = () => {
     if (this.state.name.length > 0) {
       this.props.onAddAccount({
+        id: this.generateAccountId(),
         name: this.state.name[0].toUpperCase() + this.state.name.slice(1),
         description: 'created',
         additionalNote: 'created',
