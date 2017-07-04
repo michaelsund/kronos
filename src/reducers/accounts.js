@@ -61,19 +61,18 @@ const updateActivity = (
   return accs;
 };
 
-const findAccountById = (accounts, accountId) => {
-  let accountIndex = null;
-  for (const [index, value] of accounts.entries()) {
-    if (value.id === accountId) {
-      console.log(`found ${accountId} at ${index}`);
-      accountIndex = index;
+const findAccountIndexById = (accounts, id) => {
+  let index = null;
+  for (const [i, val] of accounts.entries()) {
+    if (val.id === id) {
+      index = i;
     }
   }
-  return accountIndex;
+  return index;
 };
 
 const accounts = (state = initialState, action) => {
-  // let accountIndex = null;
+  let accountIndex = null;
   switch (action.type) {
     case 'ADD_ACCOUNT':
       return sortAccountsByName(Object([...state, action.account]));
@@ -87,14 +86,12 @@ const accounts = (state = initialState, action) => {
         action.moveToAccountIndex
       );
     case 'SAVE_TIMER':
-      // Search for account ID and add timer/activity to it
-      findAccountById(state, action.accountId);
-      // return update(state, {
-      //   [action.accountIndex]: {
-      //     activities: { $set: [...state[accountIndex].activities, action.activity] }
-      //   }
-      // });
-      return state;
+      accountIndex = findAccountIndexById(state, action.accountId);
+      return update(state, {
+        [accountIndex]: {
+          activities: { $set: [...state[accountIndex].activities, action.activity] }
+        }
+      });
     default:
       return sortAccountsByName(state);
   }

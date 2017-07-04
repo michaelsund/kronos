@@ -116,7 +116,7 @@ class Timer extends React.Component {
   handleAccountChange = (event, index, account) => {
     this.props.onSetTimeAccount({
       timerIndex: this.props.timerIndex,
-      accountIndex: index,
+      accountId: this.findAccountIdByIndex(index),
       account
     });
   }
@@ -157,6 +157,11 @@ class Timer extends React.Component {
       }
     }
   }
+
+  findAccountIdByIndex = (accountIndex) => {
+    const id = this.props.accounts[accountIndex].id;
+    return id;
+  };
 
   render() {
     return (
