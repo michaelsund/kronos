@@ -1,10 +1,4 @@
 
-☐ Timer component has a problem with saveToAccountIndex not being saved in redux
-  so its null when navigating back and the timer cannot be saved, 
-  fix so that its passed to timers in redux just like name.
-  
-  Should save to account with id instead of accountIndex
-
 ☐ Activityes should be sorted by time they where added.
 ☐ Per account on creation add more data like currency, show currency on export and such properties.
 ☐ Total spent time per account on accounts view.
@@ -18,6 +12,7 @@ If it feels necessary
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ Timer component has a problem with saveToAccountIndex not being saved in redux so its null when navigating back and the timer cannot be saved,  fix so that its passed to timers in redux just like name. Should save to account with id instead of accountIndex @done(2017-07-04 11:09)
   ✔ Date logged when activity was started @done(2017-06-28 22:47)
   ✔ Save should save the current timer with the activity to specified account. @done(2017-06-28 22:01)
   ✔ On edit, able to move activity to other account. @done(2017-06-28 16:10)
