@@ -47,8 +47,8 @@ const mapDispatchToProps = (dispatch) => {
     onDeleteTimer: timerIndex => dispatch(
       actions.deleteTimer(timerIndex)
     ),
-    onSaveTimer: (accountIndex, activity) => dispatch(
-      actions.saveTimer(accountIndex, activity)
+    onSaveTimer: (accountId, activity) => dispatch(
+      actions.saveTimer(accountId, activity)
     )
   };
   return props;
