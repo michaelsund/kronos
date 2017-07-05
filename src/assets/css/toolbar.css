@@ -30,8 +30,12 @@
   margin-bottom: 30px;
 }
 
-.barButtons {
+.minimizeIcon {
+  position: relative;
+  top: 5px;
   color: #FFFFFF !important;
-  fill: #FFFFFF !important;
-  z-index: 100 !important;
+}
+
+.closeIcon {
+  color: #FFFFFF !important;
 }

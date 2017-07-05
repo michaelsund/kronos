@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import NavigationMinimize from 'material-ui/svg-icons/content/remove';
 import IconTimer from 'material-ui/svg-icons/image/timer';
 import FlatButton from 'material-ui/FlatButton';
 import IconFormatListBulleted from 'material-ui/svg-icons/editor/format-list-bulleted';
@@ -46,8 +47,11 @@ class ToolBar extends React.Component {
   }
 
   closeApplication = () => {
-    console.log('closing');
     ipc.send('close-main-window');
+  }
+
+  minimizeApplication = () => {
+    ipc.send('minimize-main-window');
   }
 
   selectNav = (index) => {
@@ -98,11 +102,18 @@ class ToolBar extends React.Component {
             showMenuIconButton={false}
             title="Kronos"
             iconElementRight={
-              <IconButton
-                onTouchTap={() => { this.closeApplication(); }}
-              >
-                <NavigationClose />
-              </IconButton>
+              <div>
+                <IconButton
+                  onTouchTap={() => { this.minimizeApplication(); }}
+                >
+                  <NavigationMinimize className={styles.minimizeIcon} />
+                </IconButton>
+                <IconButton
+                  onTouchTap={() => { this.closeApplication(); }}
+                >
+                  <NavigationClose className={styles.closeIcon} />
+                </IconButton>
+              </div>
             }
           />
         </div>

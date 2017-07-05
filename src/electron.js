@@ -7,6 +7,10 @@ ipcMain.on('close-main-window', (event, arg) => {
   app.quit();
 });
 
+ipcMain.on('minimize-main-window', (event, arg) => {
+  BrowserWindow.getFocusedWindow().minimize();
+});
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     frame: false,
