@@ -14,6 +14,7 @@ import SelectField from 'material-ui/SelectField';
 import Avatar from 'material-ui/Avatar';
 import { grey400, darkBlack, lightBlack } from 'material-ui/styles/colors';
 import IconEdit from 'material-ui/svg-icons/editor/mode-edit';
+import IconDelete from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
@@ -59,7 +60,8 @@ class AccountList extends React.Component {
       accountIndex: null,
       activityIndex: null,
       open: false,
-      modalOpen: false,
+      activityModalOpen: false,
+      accountModalOpen: false,
       activity: {
         name: '',
         hours: 0,
@@ -133,12 +135,11 @@ class AccountList extends React.Component {
   };
 
   // TODO input validation
-
-  handleEditModal = (accountIndex, activityIndex, activity) => {
+  handleEditActivityModal = (accountIndex, activityIndex, activity) => {
     this.setState({
       accountIndex,
       activityIndex,
-      modalOpen: true,
+      activityModalOpen: true,
       activity: {
         name: activity.name,
         hours: activity.hours,
@@ -149,7 +150,7 @@ class AccountList extends React.Component {
   }
 
   handleEditActivity = () => {
-    this.closeDialog();
+    this.closeActivityModal();
     this.props.onEditActivity(
       this.state.accountIndex,
       this.state.activityIndex,
@@ -166,8 +167,38 @@ class AccountList extends React.Component {
     });
   }
 
-  closeDialog = () => {
-    this.setState({ modalOpen: false });
+  handleEditAccountModal = (accountIndex) => {
+    this.setState({
+      accountIndex,
+      activityIndex: null,
+      accountModalOpen: true
+    });
+  }
+
+  handleEditAccount = () => {
+    this.closeAccountModal();
+    // this.props.onEditAccount(
+    //   this.state.accountIndex,
+    //   this.state.activityIndex,
+    //   this.state.activity,
+    //   this.state.moveToAccountConfirm,
+    //   this.state.moveToAccountIndex
+    // );
+    // this.setState({
+    //   accountIndex: null,
+    //   activityIndex: null,
+    //   moveToAccountIndex: null,
+    //   moveToAccountConfirm: null,
+    //   moveToAccountName: null
+    // });
+  }
+
+  closeActivityModal = () => {
+    this.setState({ activityModalOpen: false });
+  }
+
+  closeAccountModal = () => {
+    this.setState({ accountModalOpen: false });
   }
 
   render() {
@@ -180,7 +211,7 @@ class AccountList extends React.Component {
             <div>
               <FlatButton
                 label="Cancel"
-                onTouchTap={this.closeDialog}
+                onTouchTap={this.closeActivityModal}
               />
               <FlatButton
                 label="Submit"
@@ -188,7 +219,7 @@ class AccountList extends React.Component {
               />
             </div>
           }
-          open={this.state.modalOpen}
+          open={this.state.activityModalOpen}
         >
           <Container>
             <Row>
@@ -253,6 +284,31 @@ class AccountList extends React.Component {
             </Row>
           </Container>
         </Dialog>
+        <Dialog
+          title="Edit account"
+          modal={false}
+          actions={
+            <div>
+              <FlatButton
+                label="Cancel"
+                onTouchTap={this.closeAccountModal}
+              />
+              <FlatButton
+                label="Submit"
+                onTouchTap={() => { this.handleEditAccount(); }}
+              />
+            </div>
+          }
+          open={this.state.accountModalOpen}
+        >
+          <Container>
+            <Row>
+              <Col sm={6}>
+                <span>And stuff goes here</span>
+              </Col>
+            </Row>
+          </Container>
+        </Dialog>
         { this.props.accounts.length > 0 ? (
           <List>
             { this.props.accounts.map((account, i) => {
@@ -266,19 +322,20 @@ class AccountList extends React.Component {
                   }
                   primaryText={account.name}
                   secondaryText={
-                    <p>
+                    <div>
                       <span style={{ color: darkBlack }}>{account.description}</span><br />
-                      {account.additionalNote}
-                    </p>
+                      <span>{account.additionalNote}</span>
+                    </div>
                   }
                   secondaryTextLines={2}
-                  primaryTogglesNestedList
+                  // primaryTogglesNestedList
+                  onClick={() => { this.handleEditAccountModal(i, account); }}
                   nestedItems={account.activities.length > 0 ? (
                     account.activities.map((act, x) => {
                       const activity = (
                         <ListItem
                           key={x}
-                          onClick={() => { this.handleEditModal(i, x, act); }}
+                          onClick={() => { this.handleEditActivityModal(i, x, act); }}
                           primaryText={act.hours > 0 ? (
                             `${act.name} for ${act.hours} hours and ${act.minutes} minutes`
                           ) : (

@@ -5,7 +5,7 @@ const initialState = [
     id: 'a1zxsgcps',
     name: 'Test',
     description: 'created',
-    additionalNote: 'created',
+    additionalNote: 'created additional note',
     currency: '$',
     debitOnHourStarted: false,
     showDebitInReport: false,
@@ -15,7 +15,7 @@ const initialState = [
     id: '25p73ckpy',
     name: 'Test2',
     description: 'created',
-    additionalNote: 'created',
+    additionalNote: 'created additional note',
     currency: '$',
     debitOnHourStarted: false,
     showDebitInReport: false,
@@ -25,7 +25,7 @@ const initialState = [
     id: '97ekc3j5a',
     name: 'Test3',
     description: 'created',
-    additionalNote: 'created',
+    additionalNote: 'created additional note',
     currency: '$',
     debitOnHourStarted: false,
     showDebitInReport: false,
@@ -89,7 +89,7 @@ const accounts = (state = initialState, action) => {
       accountIndex = findAccountIndexById(state, action.accountId);
       return update(state, {
         [accountIndex]: {
-          activities: { $set: [...state[accountIndex].activities, action.activity] }
+          activities: { $set: [action.activity, ...state[accountIndex].activities] }
         }
       });
     default:

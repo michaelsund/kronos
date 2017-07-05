@@ -6,7 +6,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import IconSave from 'material-ui/svg-icons/content/save';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import IconDelete from 'material-ui/svg-icons/action/delete';
 import IconPause from 'material-ui/svg-icons/av/pause';
 import IconPlay from 'material-ui/svg-icons/av/play-arrow';
 import IconReplay from 'material-ui/svg-icons/av/replay';
@@ -279,7 +279,7 @@ class Timer extends React.Component {
                     tooltipPosition="top-center"
                     onClick={() => { this.setState({ deleteDialogOpen: true }); }}
                   >
-                    <DeleteIcon className={styles.icons} />
+                    <IconDelete className={styles.icons} />
                   </IconButton>
                 </Col>
                 <Col sm={8}>
