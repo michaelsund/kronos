@@ -1,12 +1,13 @@
 
-☐ Delete activity from account (use indexes).
-☐ Delete account.
+✔ Delete activity from account (use indexes). @done(2017-07-09 19:35)
+✔ Delete account. @done(2017-07-09 20:13)
 ☐ Edit a acccount.
 ☐ Formatted timestamps on activites.
 ☐ Input validation on edit of accounts and activities
 ☐ Activityes should be sorted by time they where added.
 ☐ Per account on creation add more data like currency, show currency on export and such properties.
 ☐ Total spent time per account on accounts view.
+☐ When a timer is saved it should have a errormessage indicating if timer or activity is not correct.
 ☐ Saving data on all calls, or just exit to either local json file for import/export, or in localStorage
 ☐ Decide if input required prop should be used on TextInput components, or if theres a better way to validate input.
 ☐ Save a pdf document for specified account with tickboxes for activites to include.

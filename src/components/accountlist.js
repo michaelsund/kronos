@@ -19,6 +19,8 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import DeleteActivity from './deleteactivity';
+import DeleteAccount from './deleteaccount';
 import * as actions from '../actions';
 
 import styles from '../assets/css/accountlist.css';
@@ -209,6 +211,11 @@ class AccountList extends React.Component {
           modal={false}
           actions={
             <div>
+              <DeleteActivity
+                accountIndex={this.state.accountIndex}
+                activityIndex={this.state.activityIndex}
+                handleButtonPressed={this.closeActivityModal}
+              />
               <FlatButton
                 label="Cancel"
                 onTouchTap={this.closeActivityModal}
@@ -289,6 +296,10 @@ class AccountList extends React.Component {
           modal={false}
           actions={
             <div>
+              <DeleteAccount
+                accountIndex={this.state.accountIndex}
+                handleButtonPressed={this.closeAccountModal}
+              />
               <FlatButton
                 label="Cancel"
                 onTouchTap={this.closeAccountModal}
@@ -336,12 +347,18 @@ class AccountList extends React.Component {
                         <ListItem
                           key={x}
                           onClick={() => { this.handleEditActivityModal(i, x, act); }}
-                          primaryText={act.hours > 0 ? (
-                            `${act.name} for ${act.hours} hours and ${act.minutes} minutes`
-                          ) : (
-                            `${act.name} for ${act.minutes} minutes`
-                          )}
-                          secondaryText={`Created at ${act.createdAt}`}
+                          primaryText={
+                            <div>
+                              <p>
+                                {act.name} for {act.hours} hours and {act.minutes} minutes
+                              </p>
+                            </div>
+                          }
+                          secondaryText={
+                            <p>
+                              Created at {act.createdAt}
+                            </p>
+                          }
                         />
                       );
                       return activity;

@@ -8,13 +8,32 @@ export const RESET_TIME = 'RESET_TIME';
 export const DELETE_TIMER = 'DELETE_TIMER';
 export const SET_ALL_PAUSED = 'SET_ALL_PAUSED';
 export const EDIT_ACCOUNT_ACTIVITY = 'EDIT_ACCOUNT_ACTIVITY';
+export const DEL_ACTIVITY = 'DEL_ACTIVITY';
+export const DEL_ACCOUNT = 'DEL_ACCOUNT';
 export const SAVE_TIMER = 'SAVE_TIMER';
+
+export const deleteAccount = (accountIndex) => {
+  const r = {
+    type: DEL_ACCOUNT,
+    accountIndex
+  };
+  return r;
+};
 
 export const saveTimer = (accountId, activity) => {
   const r = {
     type: SAVE_TIMER,
     accountId,
     activity
+  };
+  return r;
+};
+
+export const deleteActivity = (accountIndex, activityIndex) => {
+  const r = {
+    type: DEL_ACTIVITY,
+    accountIndex,
+    activityIndex
   };
   return r;
 };

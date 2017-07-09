@@ -9,7 +9,16 @@ const initialState = [
     currency: '$',
     debitOnHourStarted: false,
     showDebitInReport: false,
-    activities: []
+    activities: [
+      {
+        name: '123',
+        staticSeconds: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        createdAt: '2017-07-08T16:24:27.160Z'
+      }
+    ]
   },
   {
     id: '25p73ckpy',
@@ -74,6 +83,16 @@ const findAccountIndexById = (accounts, id) => {
 const accounts = (state = initialState, action) => {
   let accountIndex = null;
   switch (action.type) {
+    case 'DEL_ACTIVITY':
+      return update(state, {
+        [action.accountIndex]: {
+          activities: { $splice: [[action.activityIndex, 1]] }
+        }
+      });
+    case 'DEL_ACCOUNT':
+      return update(state, {
+        $splice: [[action.accountIndex, 1]]
+      });
     case 'ADD_ACCOUNT':
       return sortAccountsByName(Object([...state, action.account]));
     case 'EDIT_ACCOUNT_ACTIVITY':
