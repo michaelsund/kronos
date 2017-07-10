@@ -1,6 +1,8 @@
 .card {
   height: 142px;
   margin-bottom: 30px;
+  overflow: hidden;
+  position: relative;
 }
 
 .textDiv {
@@ -15,4 +17,17 @@
 
 .icons {
   color: #333 !important;
+}
+
+.logoNewTimer {
+  top: 105px;
+  -webkit-animation: fadein 2s;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+@keyframes fadein {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0%); }
 }

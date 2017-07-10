@@ -8,6 +8,7 @@ import IconAdd from 'material-ui/svg-icons/content/add';
 import * as actions from '../actions';
 
 import styles from '../assets/css/newtimer.css';
+import kronosSvg from '../assets/images/kronoslogo.svg';
 
 const mapStateToProps = (state) => {
   const props = {
@@ -36,7 +37,7 @@ class NewTimer extends React.Component {
         <div>
           <IconButton
             tooltip="Add a timer"
-            tooltipPosition="bottom-center"
+            tooltipPosition="bottom-right"
             onTouchTap={() => { this.addNewTimer(); }}
           >
             <IconAdd className={styles.icons} />
@@ -51,6 +52,7 @@ class NewTimer extends React.Component {
             )}
           </p>
         </div>
+        <img role="presentation" src={kronosSvg} className={styles.logoNewTimer} />
       </Card>
     );
   }

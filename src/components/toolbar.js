@@ -14,6 +14,7 @@ import Dialog from 'material-ui/Dialog';
 import * as actions from '../actions';
 
 import styles from '../../src/assets/css/toolbar.css';
+import kronosIcon from '../../src/assets/images/kronos-32x32.png';
 
 const ipc = window.require('electron').ipcRenderer;
 
@@ -97,9 +98,12 @@ class ToolBar extends React.Component {
       <div>
         <div className={styles.mainContainer}>
           <AppBar
+            iconElementLeft={
+              <img role="presentation" src={kronosIcon} className={styles.appIcon} />
+            }
             style={{ position: 'fixed' }}
             className={styles.toolBar}
-            showMenuIconButton={false}
+            // showMenuIconButton={false}
             title="Kronos"
             iconElementRight={
               <div>

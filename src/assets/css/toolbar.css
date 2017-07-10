@@ -39,3 +39,8 @@
 .closeIcon {
   color: #FFFFFF !important;
 }
+
+.appIcon {
+  position: relative;
+  top: 7px;
+}
