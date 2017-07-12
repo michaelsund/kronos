@@ -12,7 +12,7 @@
     "build:page": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js --progress",
     "build:main": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.electron.js --progress",
     "build": "npm run build:page && npm run build:main",
-    "package": "cross-env NODE_ENV=production node package.js ",
+    "package": "cross-env NODE_ENV=production node package.js",
     "clean": "rimraf build",
     "clean:release": "rimraf release"
   },
@@ -42,6 +42,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
     "express": "^4.14.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.24.0",
     "image-webpack-loader": "^2.0.0",
     "json-loader": "^0.5.4",
