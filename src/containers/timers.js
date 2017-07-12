@@ -38,7 +38,11 @@ class Timers extends React.Component {
         <Row>
           { this.props.timers.map((timer, i) => {
             const result = (
-              <Col sm={6} key={i}>
+              <Col
+                lg={4}
+                sm={6}
+                key={i}
+              >
                 <Timer
                   hourProgress
                   timerIndex={i}
@@ -47,7 +51,10 @@ class Timers extends React.Component {
             );
             return result;
           })}
-          <Col sm={6}>
+          <Col
+            lg={4}
+            sm={6}
+          >
             <NewTimer />
           </Col>
         </Row>

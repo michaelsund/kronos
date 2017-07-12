@@ -15,19 +15,22 @@
   vertical-align: middle;
 }
 
-.icons {
-  color: #333 !important;
-}
-
 .logoNewTimer {
   top: 105px;
-  -webkit-animation: fadein 2s;
+  -webkit-animation: slideInFromBottom 2s, rotateMinus45 1.5s;
+  -webkit-animation-delay: 0s, 2s;
+  -webkit-animation-fill-mode: forwards;
   position: absolute;
   width: 100px;
   height: 100px;
 }
 
-@keyframes fadein {
+@keyframes slideInFromBottom {
   from { transform: translateY(100%); }
   to { transform: translateY(0%); }
+}
+
+@keyframes rotateMinus45 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-45deg); }
 }

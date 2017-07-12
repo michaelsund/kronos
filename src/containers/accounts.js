@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { Card } from 'material-ui/Card';
+import { Container, Row, Col } from 'react-grid-system';
 import AccountList from '../components/accountlist';
 import AddAccount from '../components/addaccount';
 import * as actions from '../actions';
@@ -18,10 +19,19 @@ const mapStateToProps = (state) => {
 class Accounts extends React.Component {
   render() {
     return (
-      <Card className={styles.card}>
-        <AddAccount />
-        <AccountList accounts={this.props.accounts} />
-      </Card>
+      <Container>
+        <Row>
+          <Col
+            lg={4}
+            sm={6}
+          >
+            <Card className={styles.card}>
+              <AddAccount />
+              <AccountList accounts={this.props.accounts} />
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

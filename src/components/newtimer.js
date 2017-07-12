@@ -34,15 +34,14 @@ class NewTimer extends React.Component {
   render() {
     return (
       <Card className={styles.card}>
-        <div>
-          <IconButton
-            tooltip="Add a timer"
-            tooltipPosition="bottom-right"
-            onTouchTap={() => { this.addNewTimer(); }}
-          >
-            <IconAdd className={styles.icons} />
-          </IconButton>
-        </div>
+        <IconButton
+          tooltip="New"
+          tooltipPosition="bottom-center"
+          onClick={() => { this.addNewTimer(); }}
+          disableTouchRipple
+        >
+          <IconAdd />
+        </IconButton>
         <div className={styles.textDiv}>
           <p className={styles.addText}>
             {this.props.timers.length > 0 ? (
@@ -52,7 +51,11 @@ class NewTimer extends React.Component {
             )}
           </p>
         </div>
-        <img role="presentation" src={kronosSvg} className={styles.logoNewTimer} />
+        <img
+          role="presentation"
+          className={styles.logoNewTimer}
+          src={kronosSvg}
+        />
       </Card>
     );
   }

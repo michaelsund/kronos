@@ -1,5 +1,4 @@
 
-☐ pixel perfect logo
 ☐ Edit a acccount.
 ☐ Formatted timestamps on activites.
 ☐ Input validation on edit of accounts and activities
@@ -14,6 +13,7 @@
 If it feels necessary
 ☐ Rewrite all css to sass, and inherit stuff such as icon colors throughout stylesheets.
 ☐ Break out big stuff and create smaller components.
+☐ pixel perfect logo
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
