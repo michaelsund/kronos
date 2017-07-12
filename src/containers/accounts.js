@@ -22,14 +22,22 @@ class Accounts extends React.Component {
       <Container>
         <Row>
           <Col
-            lg={4}
-            sm={6}
+            lg={1}
+            sm={0}
+          />
+          <Col
+            lg={10}
+            sm={12}
           >
             <Card className={styles.card}>
               <AddAccount />
               <AccountList accounts={this.props.accounts} />
             </Card>
           </Col>
+          <Col
+            lg={1}
+            sm={0}
+          />
         </Row>
       </Container>
     );
