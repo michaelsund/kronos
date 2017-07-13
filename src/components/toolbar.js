@@ -69,11 +69,11 @@ class ToolBar extends React.Component {
   }
 
   checkTimersState = () => {
-    let allPaused = false;
+    let allPaused = true;
     if (this.props.timers.length > 0) {
       for (const timer of this.props.timers) {
-        if (!timer.running) {
-          allPaused = true;
+        if (timer.running) {
+          allPaused = false;
         }
       }
       if (!allPaused) {

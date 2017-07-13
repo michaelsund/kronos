@@ -11,6 +11,16 @@ export const EDIT_ACCOUNT_ACTIVITY = 'EDIT_ACCOUNT_ACTIVITY';
 export const DEL_ACTIVITY = 'DEL_ACTIVITY';
 export const DEL_ACCOUNT = 'DEL_ACCOUNT';
 export const SAVE_TIMER = 'SAVE_TIMER';
+export const EDIT_ACCOUNT = 'EDIT_ACCOUNT';
+
+export const editAccount = (accountIndex, account) => {
+  const r = {
+    type: EDIT_ACCOUNT,
+    accountIndex,
+    account
+  };
+  return r;
+};
 
 export const deleteAccount = (accountIndex) => {
   const r = {

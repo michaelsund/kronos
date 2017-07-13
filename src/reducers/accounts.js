@@ -4,10 +4,10 @@ const initialState = [
   {
     id: 'a1zxsgcps',
     name: 'Test',
-    description: 'created',
+    description: 'created CURRENT DEV',
     additionalNote: 'created additional note',
     currency: '$',
-    debitOnHourStarted: false,
+    debitOnHourStarted: true,
     showDebitInReport: false,
     activities: [
       {
@@ -44,7 +44,7 @@ const initialState = [
 
 const sortAccountsByName = (accounts) => {
   const sorted = accounts.sort((a, b) => a.name.localeCompare(b.name));
-  return sorted;
+  return Object([...sorted]);
 };
 
 const updateActivity = (
@@ -70,6 +70,20 @@ const updateActivity = (
   return accs;
 };
 
+const editAccount = (accountIndex, oldAccs, account) => {
+  // Not passing along activities so a copy of those will be needed.
+  let savedActivities = null;
+  const newAccs = oldAccs;
+  if (oldAccs[accountIndex].activities.length > 0) {
+    savedActivities = oldAccs[accountIndex].activities;
+  } else {
+    savedActivities = [];
+  }
+  newAccs[accountIndex] = account;
+  newAccs[accountIndex].activities = savedActivities;
+  return sortAccountsByName(newAccs);
+};
+
 const findAccountIndexById = (accounts, id) => {
   let index = null;
   for (const [i, val] of accounts.entries()) {
@@ -83,6 +97,8 @@ const findAccountIndexById = (accounts, id) => {
 const accounts = (state = initialState, action) => {
   let accountIndex = null;
   switch (action.type) {
+    case 'EDIT_ACCOUNT':
+      return editAccount(action.accountIndex, state, action.account);
     case 'DEL_ACTIVITY':
       return update(state, {
         [action.accountIndex]: {

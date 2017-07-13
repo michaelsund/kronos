@@ -13,40 +13,47 @@ import IconButton from 'material-ui/IconButton';
 import IconAdd from 'material-ui/svg-icons/content/add';
 import * as actions from '../actions';
 
-import styles from '../assets/css/addaccount.css';
+import styles from '../assets/css/editaccount.css';
 
 const mapDispatchToProps = (dispatch) => {
   const props = {
-    onAddAccount: account => dispatch(
-      actions.addAccount(account)
+    onEditAccount: (accountIndex, account) => dispatch(
+      actions.editAccount(accountIndex, account)
     )
   };
   return props;
 };
 
-class AddAccount extends React.Component {
+class EditAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       formNotValid: false,
       open: false,
+      id: '',
       name: '',
       description: '',
       additionalNote: '',
-      currency: '$',
-      debitOnHourStarted: true,
-      showDebitInReport: true,
+      currency: '',
+      debitOnHourStarted: false,
+      showDebitInReport: false,
       currencies: ['kr', '€', '$', '£']
     };
   }
 
-  onNameChanged = (event, accountName) => {
-    this.setState({ name: accountName });
+  componentDidMount = () => {
+    this.props.onRef(this);
+  }
+
+  componentWillUnmount() {
+    this.props.onRef(undefined);
   }
 
   upperCaseIt = (inputString) => {
-    const result = inputString[0].toUpperCase() + inputString.slice(1);
-    return result;
+    if (inputString.length > 0) {
+      return inputString[0].toUpperCase() + inputString.slice(1);
+    }
+    return '';
   }
 
   validateInput = (data) => {
@@ -60,33 +67,36 @@ class AddAccount extends React.Component {
     }
   }
 
-  addAccount = () => {
-    if (this.state.name.length > 0) {
-      this.props.onAddAccount({
-        id: this.generateAccountId(),
+  handleEditAccount = () => {
+    // TODO Input validation
+    this.props.onEditAccount(
+      this.state.accountIndex,
+      {
+        id: this.state.id,
         name: this.upperCaseIt(this.state.name),
         description: this.upperCaseIt(this.state.description),
         additionalNote:
           this.upperCaseIt(this.state.additionalNote),
         currency: this.state.currency,
         debitOnHourStarted: this.state.debitOnHourStarted,
-        showDebitInReport: this.state.showDebitInReport,
-        activities: []
-      });
-      this.closeDialog();
-      this.setState({
-        name: '',
-        description: '',
-        additionalNote: '',
-        currency: '$',
-        debitOnHourStarted: true,
-        showDebitInReport: true
-      });
-    }
+        showDebitInReport: this.state.showDebitInReport
+      }
+    );
+    this.closeDialog();
   }
 
-  openDialog = () => {
-    this.setState({ open: true });
+  openDialog = (accountIndex, accountObj) => {
+    this.setState({
+      accountIndex,
+      open: true,
+      id: accountObj.id,
+      name: accountObj.name,
+      description: accountObj.description,
+      additionalNote: accountObj.additionalNote,
+      currency: accountObj.currency,
+      debitOnHourStarted: accountObj.debitOnHourStarted,
+      showDebitInReport: accountObj.showDebitInReport,
+    });
   }
 
   closeDialog = () => {
@@ -126,23 +136,11 @@ class AddAccount extends React.Component {
     }
   }
 
-  generateAccountId = () => {
-    const id = Math.random().toString(36).substr(2, 9);
-    return id;
-  }
-
   render() {
     return (
       <div>
-        <IconButton
-          tooltip="New account"
-          tooltipPosition="bottom-center"
-          onTouchTap={() => { this.openDialog(); }}
-        >
-          <IconAdd className={styles.icons} />
-        </IconButton>
         <Dialog
-          title="Add new account"
+          title="Edit account"
           modal={false}
           actions={
             <div>
@@ -152,8 +150,8 @@ class AddAccount extends React.Component {
               />
               <FlatButton
                 label="Ok"
-                onTouchTap={this.addAccount}
                 disabled={this.state.formNotValid}
+                onTouchTap={this.handleEditAccount}
               />
             </div>
           }
@@ -189,7 +187,7 @@ class AddAccount extends React.Component {
               <Col sm={6}>
                 <SelectField
                   floatingLabelFixed
-                  floatingLabelText="Move to account"
+                  floatingLabelText="Currency"
                   value={this.state.currency}
                   onChange={(e) => { this.handleInputs(e, 'currency'); }}
                 >
@@ -208,7 +206,7 @@ class AddAccount extends React.Component {
               <Row>
                 <Col sm={6}>
                   <Checkbox
-                    label="Debit on hour started"
+                    label="Debits on hour started"
                     checked={this.state.debitOnHourStarted}
                     onCheck={(e) => { this.handleInputs(e, 'debitOnHourStarted'); }}
                   />
@@ -229,8 +227,9 @@ class AddAccount extends React.Component {
   }
 }
 
-AddAccount.propTypes = {
-  onAddAccount: PropTypes.func
+EditAccount.propTypes = {
+  onEditAccount: PropTypes.func,
+  onRef: PropTypes.func.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(AddAccount);
+export default connect(null, mapDispatchToProps)(EditAccount);

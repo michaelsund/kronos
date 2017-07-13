@@ -21,6 +21,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import DeleteActivity from './deleteactivity';
 import DeleteAccount from './deleteaccount';
+import EditAccount from './editaccount';
 import * as actions from '../actions';
 
 import styles from '../assets/css/accountlist.css';
@@ -59,11 +60,8 @@ class AccountList extends React.Component {
       moveToAccountConfirm: false,
       moveToAccountIndex: null,
       moveToAccountName: null,
-      accountIndex: null,
       activityIndex: null,
-      open: false,
       activityModalOpen: false,
-      accountModalOpen: false,
       activity: {
         name: '',
         hours: 0,
@@ -169,43 +167,18 @@ class AccountList extends React.Component {
     });
   }
 
-  handleEditAccountModal = (accountIndex) => {
-    this.setState({
-      accountIndex,
-      activityIndex: null,
-      accountModalOpen: true
-    });
-  }
-
-  handleEditAccount = () => {
-    this.closeAccountModal();
-    // this.props.onEditAccount(
-    //   this.state.accountIndex,
-    //   this.state.activityIndex,
-    //   this.state.activity,
-    //   this.state.moveToAccountConfirm,
-    //   this.state.moveToAccountIndex
-    // );
-    // this.setState({
-    //   accountIndex: null,
-    //   activityIndex: null,
-    //   moveToAccountIndex: null,
-    //   moveToAccountConfirm: null,
-    //   moveToAccountName: null
-    // });
-  }
-
   closeActivityModal = () => {
     this.setState({ activityModalOpen: false });
-  }
-
-  closeAccountModal = () => {
-    this.setState({ accountModalOpen: false });
   }
 
   render() {
     return (
       <div>
+        <EditAccount
+          accountIndex={this.state.accountIndexToEdit}
+          account={this.state.accountToEdit}
+          onRef={ref => (this.editAccountRef = ref)}
+        />
         <Dialog
           title="Edit activity"
           modal={false}
@@ -221,7 +194,7 @@ class AccountList extends React.Component {
                 onTouchTap={this.closeActivityModal}
               />
               <FlatButton
-                label="Submit"
+                label="Ok"
                 onTouchTap={() => { this.handleEditActivity(); }}
               />
             </div>
@@ -291,35 +264,6 @@ class AccountList extends React.Component {
             </Row>
           </Container>
         </Dialog>
-        <Dialog
-          title="Edit account"
-          modal={false}
-          actions={
-            <div>
-              <DeleteAccount
-                accountIndex={this.state.accountIndex}
-                handleButtonPressed={this.closeAccountModal}
-              />
-              <FlatButton
-                label="Cancel"
-                onTouchTap={this.closeAccountModal}
-              />
-              <FlatButton
-                label="Submit"
-                onTouchTap={() => { this.handleEditAccount(); }}
-              />
-            </div>
-          }
-          open={this.state.accountModalOpen}
-        >
-          <Container>
-            <Row>
-              <Col sm={6}>
-                <span>And stuff goes here</span>
-              </Col>
-            </Row>
-          </Container>
-        </Dialog>
         { this.props.accounts.length > 0 ? (
           <List>
             { this.props.accounts.map((account, i) => {
@@ -339,8 +283,7 @@ class AccountList extends React.Component {
                     </div>
                   }
                   secondaryTextLines={2}
-                  // primaryTogglesNestedList
-                  onClick={() => { this.handleEditAccountModal(i, account); }}
+                  onClick={() => { this.editAccountRef.openDialog(i, account); }}
                   nestedItems={account.activities.length > 0 ? (
                     account.activities.map((act, x) => {
                       const activity = (
@@ -356,7 +299,8 @@ class AccountList extends React.Component {
                           }
                           secondaryText={
                             <p>
-                              Created at {act.createdAt}
+                              {/* Created at {act.createdAt} */}
+                              <span>bleh date time</span>
                             </p>
                           }
                         />
