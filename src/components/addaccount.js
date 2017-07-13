@@ -45,18 +45,17 @@ class AddAccount extends React.Component {
   }
 
   upperCaseIt = (inputString) => {
-    const result = inputString[0].toUpperCase() + inputString.slice(1);
-    return result;
+    if (inputString.length > 0) {
+      return inputString[0].toUpperCase() + inputString.slice(1);
+    }
+    return '';
   }
 
   validateInput = (data) => {
-    console.log(data);
     if (data.length > 0) {
       this.setState({ formNotValid: false });
-      console.log('valid');
     } else {
       this.setState({ formNotValid: true });
-      console.log('not valid');
     }
   }
 
@@ -180,7 +179,6 @@ class AddAccount extends React.Component {
             <Row>
               <Col sm={6}>
                 <TextField
-                  autoFocus
                   value={this.state.additionalNote}
                   onChange={(e) => { this.handleInputs(e, 'additionalNote'); }}
                   floatingLabelText="Additional note"

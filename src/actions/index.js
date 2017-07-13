@@ -122,7 +122,6 @@ export const editAccountActivity = (
   accountIndex,
   activityIndex,
   activity,
-  moveToAccountConfirm,
   moveToAccountIndex
 ) => {
   const r = {
@@ -130,7 +129,6 @@ export const editAccountActivity = (
     accountIndex,
     activityIndex,
     activity,
-    moveToAccountConfirm,
     moveToAccountIndex
   };
   return r;

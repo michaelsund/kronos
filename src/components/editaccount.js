@@ -57,18 +57,14 @@ class EditAccount extends React.Component {
   }
 
   validateInput = (data) => {
-    console.log(data);
     if (data.length > 0) {
       this.setState({ formNotValid: false });
-      console.log('valid');
     } else {
       this.setState({ formNotValid: true });
-      console.log('not valid');
     }
   }
 
   handleEditAccount = () => {
-    // TODO Input validation
     this.props.onEditAccount(
       this.state.accountIndex,
       {

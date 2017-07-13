@@ -14,8 +14,8 @@ const initialState = [
         name: '123',
         staticSeconds: 0,
         hours: 0,
-        minutes: 0,
-        seconds: 0,
+        minutes: 3,
+        seconds: 4,
         createdAt: '2017-07-08T16:24:27.160Z'
       }
     ]
@@ -52,7 +52,6 @@ const updateActivity = (
   activityIndex,
   activity,
   accounts,
-  moveToAccountConfirm,
   moveToAccountIndex
 ) => {
   // Sort
@@ -61,7 +60,7 @@ const updateActivity = (
   const staticSeconds = ((activity.hours * 60 * 60) + (activity.minutes * 60) + activity.seconds);
   const newActivity = activity;
   newActivity.staticSeconds = staticSeconds;
-  if (!moveToAccountConfirm) {
+  if (moveToAccountIndex === null) {
     accs[accountIndex].activities[activityIndex] = newActivity;
   } else {
     accs[accountIndex].activities.pop(activityIndex);
@@ -117,7 +116,6 @@ const accounts = (state = initialState, action) => {
         action.activityIndex,
         action.activity,
         state,
-        action.moveToAccountConfirm,
         action.moveToAccountIndex
       );
     case 'SAVE_TIMER':

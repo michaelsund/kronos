@@ -1,10 +1,8 @@
+☐ Save timer disabled, if no account selected and no activity written.
+☐ Add delete account/activity to edit components.
 ☐ Formatted timestamps on activites (currently bugs out the dropdown, commented for now).
-☐ Input validation on edit of accounts and activities (look at editaccount validation.)
-☐ Save timer icon should be disabled when no account or activity has been specified, look at editccount validaiton.
-☐ Per account on creation add more data like currency, show currency on export and such properties.
 ☐ Total spent time per account on accounts view.
 ☐ Saving data on all calls, or just exit to either local json file for import/export, or in localStorage
-☐ Decide if input required prop should be used on TextInput components, or if theres a better way to validate input.
 ☐ Save a pdf document for specified account with tickboxes for activites to include.
 
 If it feels necessary
@@ -14,6 +12,9 @@ If it feels necessary
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ Input on activities (look at editaccount validation.) @done(2017-07-13 11:35)
+  ✔ Per account on creation add more data like currency, show currency on export and such properties. @done(2017-07-13 11:35)
+  ✔ Break out editactiviy to a own component. @done(2017-07-13 11:02)
   ✔ Edit a acccount. @done(2017-07-13 08:01)
   ✔ Fields for adding account. (should be incorporated into editaccount) @done(2017-07-13 08:00)
   ✔ Activities should be sorted by time they where added. @done(2017-07-13 06:03)

@@ -60,6 +60,7 @@ class Timer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      formNotValid: true,
       deleteDialogOpen: false,
       timerWasSaved: false,
       createdAt: null,
@@ -81,6 +82,14 @@ class Timer extends React.Component {
   componentWillUnmount = () => {
     this.setState({ running: false });
     clearInterval(this.timer);
+  }
+
+  validateInput = (data) => {
+    if (data.length > 0) {
+      this.setState({ formNotValid: false });
+    } else {
+      this.setState({ formNotValid: true });
+    }
   }
 
   startPauseTimer = () => {
@@ -126,6 +135,7 @@ class Timer extends React.Component {
       timerIndex: this.props.timerIndex,
       activity
     });
+    this.validateInput(activity);
   }
 
   deleteTimer = () => {
@@ -266,6 +276,7 @@ class Timer extends React.Component {
               <Row>
                 <Col sm={2} className={styles.colNoPad}>
                   <IconButton
+                    disabled={this.state.formNotValid}
                     tooltip="Save"
                     tooltipPosition="top-center"
                     onClick={() => { this.saveTimer(); }}
