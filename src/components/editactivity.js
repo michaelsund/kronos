@@ -36,6 +36,9 @@ const mapDispatchToProps = (dispatch) => {
         activity,
         moveToAccountIndex
       )
+    ),
+    onDeleteActivity: (accountIndex, activityIndex) => dispatch(
+      actions.deleteActivity(accountIndex, activityIndex)
     )
   };
   return props;
@@ -143,6 +146,11 @@ class EditActivity extends React.Component {
     });
   }
 
+  handleDeleteActivity = () => {
+    this.props.onDeleteActivity(this.state.accountIndex, this.state.activityIndex);
+    this.closeDialog();
+  }
+
   render() {
     return (
       <div>
@@ -151,6 +159,11 @@ class EditActivity extends React.Component {
           modal={false}
           actions={
             <div>
+              <FlatButton
+                label="Delete"
+                secondary
+                onTouchTap={this.handleDeleteActivity}
+              />
               <FlatButton
                 label="Cancel"
                 onTouchTap={this.closeDialog}
@@ -218,6 +231,7 @@ class EditActivity extends React.Component {
 
 EditActivity.propTypes = {
   onEditActivity: PropTypes.func,
+  onDeleteActivity: PropTypes.func,
   onRef: PropTypes.func.isRequired,
   accounts: PropTypes.array
 };

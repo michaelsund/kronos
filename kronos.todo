@@ -1,5 +1,4 @@
-☐ Save timer disabled, if no account selected and no activity written.
-☐ Add delete account/activity to edit components.
+✔ Add delete account/activity to edit components. @done(2017-07-16 22:09)
 ☐ Formatted timestamps on activites (currently bugs out the dropdown, commented for now).
 ☐ Total spent time per account on accounts view.
 ☐ Saving data on all calls, or just exit to either local json file for import/export, or in localStorage
