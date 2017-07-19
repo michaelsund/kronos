@@ -16,6 +16,8 @@ const timers = (state = initialState, action) => {
   let newTimers;
   let tmpTimer;
   switch (action.type) {
+    case 'LOAD_TIMERS':
+      return Object([...action.timers]);
     case 'SET_ALL_PAUSED':
       newTimers = state.map((timer) => {
         tmpTimer = { ...timer, running: false };

@@ -12,6 +12,24 @@ export const DEL_ACTIVITY = 'DEL_ACTIVITY';
 export const DEL_ACCOUNT = 'DEL_ACCOUNT';
 export const SAVE_TIMER = 'SAVE_TIMER';
 export const EDIT_ACCOUNT = 'EDIT_ACCOUNT';
+export const LOAD_ACCOUNTS = 'LOAD_ACCOUNTS';
+export const LOAD_TIMERS = 'LOAD_TIMERS';
+
+export const loadAccounts = (accounts) => {
+  const r = {
+    type: LOAD_ACCOUNTS,
+    accounts
+  };
+  return r;
+};
+
+export const loadTimers = (timers) => {
+  const r = {
+    type: LOAD_TIMERS,
+    timers
+  };
+  return r;
+};
 
 export const editAccount = (accountIndex, account) => {
   const r = {

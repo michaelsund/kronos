@@ -3,6 +3,11 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 
 let mainWindow;
 
+ipcMain.on('export', (event, arg) => {
+  // TODO: Can receive more than one arg? see importexport.js
+  console.log(arg);
+});
+
 ipcMain.on('close-main-window', (event, arg) => {
   app.quit();
 });
@@ -24,9 +29,6 @@ function createWindow() {
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
-    // BrowserWindow.addDevToolsExtension(
-    // 'C:\\Users\\michael\\AppData\\Roaming\\Electron\\extensions\\' +
-    // 'fmkadmapgofadopljbjfkapdkoienihi');
   }
 
   mainWindow.on('closed', () => {

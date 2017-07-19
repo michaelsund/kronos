@@ -8,6 +8,7 @@ import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 import { grey400, darkBlack, lightBlack } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import moment from 'moment';
 import EditAccount from './editaccount';
 import EditActivity from './editactivity';
 
@@ -15,6 +16,7 @@ import styles from '../assets/css/accountlist.css';
 
 export default class AccountList extends React.Component {
   render() {
+    moment.locale('en');
     return (
       <div>
         <EditAccount
@@ -58,8 +60,7 @@ export default class AccountList extends React.Component {
                           }
                           secondaryText={
                             <p>
-                              {/* Created at {act.createdAt} */}
-                              <span>bleh date time</span>
+                              Created at {moment(act.createdAt).format('d MMM YYYY')}
                             </p>
                           }
                         />

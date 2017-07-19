@@ -17,6 +17,8 @@ import { Container, Row, Col, ClearFix } from 'react-grid-system';
 import Dialog from 'material-ui/Dialog';
 import * as actions from '../actions';
 
+import PersistentStates from './persistentstates';
+
 import styles from '../assets/css/timer.css';
 
 const mapStateToProps = (state) => {
@@ -60,6 +62,7 @@ class Timer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      internalMinuteCheck: 0,
       deleteDialogOpen: false,
       timerWasSaved: false,
       createdAt: null,
@@ -90,6 +93,13 @@ class Timer extends React.Component {
         running: true
       });
       this.timer = setInterval(() => {
+        if (this.state.internalMinuteCheck === 60) {
+          // Save states to local storage every minute
+          this.persistentStates.saveToLocalStorage();
+          this.setState({ internalMinuteCheck: 1 });
+        } else {
+          this.setState({ internalMinuteCheck: this.state.internalMinuteCheck + 1 });
+        }
         this.props.onSetTime({
           timerIndex: this.props.timerIndex,
           staticSeconds: this.props.timers[this.props.timerIndex].staticSeconds + 1
@@ -114,6 +124,9 @@ class Timer extends React.Component {
   }
 
   handleAccountChange = (event, index, account) => {
+    // Save states to local storage on account change
+    this.persistentStates.saveToLocalStorage();
+
     this.props.onSetTimeAccount({
       timerIndex: this.props.timerIndex,
       accountId: this.findAccountIdByIndex(index),
@@ -122,6 +135,9 @@ class Timer extends React.Component {
   }
 
   handleActivityChange = (event, activity) => {
+    // Save states to local storage on activity change
+    this.persistentStates.saveToLocalStorage();
+
     this.props.onSetTimeActivity({
       timerIndex: this.props.timerIndex,
       activity
@@ -166,6 +182,7 @@ class Timer extends React.Component {
   render() {
     return (
       <div>
+        <PersistentStates onRef={ref => (this.persistentStates = ref)} />
         <Card className={styles.cards}>
           <CardHeader
             title={this.props.timers[this.props.timerIndex].account.name.length > 0 ? (this.props.timers[this.props.timerIndex].account.name) : ('Account not assigned')}

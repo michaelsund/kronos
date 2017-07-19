@@ -1,16 +1,21 @@
-✔ Add delete account/activity to edit components. @done(2017-07-16 22:09)
-☐ Formatted timestamps on activites (currently bugs out the dropdown, commented for now).
-☐ Total spent time per account on accounts view.
-☐ Saving data on all calls, or just exit to either local json file for import/export, or in localStorage
+☐ The save to localStorage is too fast, the redux state has not yet change before the save is triggered.
+☐ Create the initial route "loading spinner" component that calls the persistentstate load, otherwise timers container will load localstorage data on every navigation to it.
+☐ Saving redux state to local storage on apropriate calls.
+☐ Load localStorage saved state to redux on app start.
+☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.
 ☐ Save a pdf document for specified account with tickboxes for activites to include.
 
+
 If it feels necessary
+☐ Total spent time per account on accounts view.
 ☐ Rewrite all css to sass, and inherit stuff such as icon colors throughout stylesheets.
 ☐ Break out big stuff and create smaller components.
 ☐ pixel perfect logo
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ Formatted timestamps on activites (currently bugs out the dropdown, commented for now). @done(2017-07-18 17:41)
+  ✔ Add delete account/activity to edit components. @done(2017-07-16 22:09)
   ✔ Input on activities (look at editaccount validation.) @done(2017-07-13 11:35)
   ✔ Per account on creation add more data like currency, show currency on export and such properties. @done(2017-07-13 11:35)
   ✔ Break out editactiviy to a own component. @done(2017-07-13 11:02)
