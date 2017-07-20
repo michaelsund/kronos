@@ -137,23 +137,26 @@ class Timer extends React.Component {
     const timer = this.props.timers[this.props.timerIndex];
     if (timer.account.name && timer.account.activity) {
       if (this.props.timers[this.props.timerIndex].account.id !== null) {
-        this.props.onSaveTimer(
-          this.props.timers[this.props.timerIndex].account.id,
-          {
-            name: timer.account.activity,
-            staticSeconds: timer.staticSeconds,
-            hours: timer.hours,
-            minutes: timer.minutes,
-            seconds: timer.seconds,
-            createdAt: this.state.createdAt
-          }
-        );
-        this.setState({ timerWasSaved: true });
-        clearInterval(this.timer);
-        this.props.onSetStatus({
-          timerIndex: this.props.timerIndex,
-          running: false
-        });
+        // Check if the account still exists by id, otherwise do nothing.
+        if (this.props.accounts.filter(acc => acc.id === timer.account.id).length > 0) {
+          this.props.onSaveTimer(
+            this.props.timers[this.props.timerIndex].account.id,
+            {
+              name: timer.account.activity,
+              staticSeconds: timer.staticSeconds,
+              hours: timer.hours,
+              minutes: timer.minutes,
+              seconds: timer.seconds,
+              createdAt: this.state.createdAt
+            }
+          );
+          this.setState({ timerWasSaved: true });
+          clearInterval(this.timer);
+          this.props.onSetStatus({
+            timerIndex: this.props.timerIndex,
+            running: false
+          });
+        }
       }
     }
   }

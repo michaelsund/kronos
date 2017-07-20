@@ -1,46 +1,6 @@
 import update from 'react-addons-update';
 
-const initialState = [
-  // {
-  //   id: 'a1zxsgcps',
-  //   name: 'Test',
-  //   description: 'created CURRENT DEV',
-  //   additionalNote: 'created additional note',
-  //   currency: '$',
-  //   debitOnHourStarted: true,
-  //   showDebitInReport: false,
-  //   activities: [
-  //     {
-  //       name: '123',
-  //       staticSeconds: 300,
-  //       hours: 0,
-  //       minutes: 3,
-  //       seconds: 4,
-  //       createdAt: '2017-07-08T16:24:27.160Z'
-  //     }
-  //   ]
-  // },
-  // {
-  //   id: '25p73ckpy',
-  //   name: 'Test2',
-  //   description: 'created',
-  //   additionalNote: 'created additional note',
-  //   currency: '$',
-  //   debitOnHourStarted: false,
-  //   showDebitInReport: false,
-  //   activities: []
-  // },
-  // {
-  //   id: '97ekc3j5a',
-  //   name: 'Test3',
-  //   description: 'created',
-  //   additionalNote: 'created additional note',
-  //   currency: '$',
-  //   debitOnHourStarted: false,
-  //   showDebitInReport: false,
-  //   activities: []
-  // }
-];
+const initialState = [];
 
 const sortAccountsByName = (accounts) => {
   const sorted = accounts.sort((a, b) => a.name.localeCompare(b.name));
