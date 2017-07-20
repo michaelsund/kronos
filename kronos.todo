@@ -1,7 +1,5 @@
-☐ The save to localStorage is too fast, the redux state has not yet change before the save is triggered.
-☐ Create the initial route "loading spinner" component that calls the persistentstate load, otherwise timers container will load localstorage data on every navigation to it.
-☐ Saving redux state to local storage on apropriate calls.
-☐ Load localStorage saved state to redux on app start.
+
+☐ Account deleted when tied to a timer, generates error, delete account should also remove all accounts bound to a timer, and the timer component should know this.
 ☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.
 ☐ Save a pdf document for specified account with tickboxes for activites to include.
 
