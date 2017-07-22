@@ -1,10 +1,9 @@
-
-☐ Account deleted when tied to a timer, generates error, delete account should also remove all accounts bound to a timer, and the timer component should know this.
-☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.
-☐ Save a pdf document for specified account with tickboxes for activites to include.
-
+☐ Save a pdf document for specified account with tickboxes for activites to include and path to save + filename.
+☐ pdf table formatting, and counting up total hours + minutes + debit if activated for account.
+☐ CreatePdf should be better placed inside editAccount, too many buttons allready.
 
 If it feels necessary
+☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.
 ☐ Total spent time per account on accounts view.
 ☐ Rewrite all css to sass, and inherit stuff such as icon colors throughout stylesheets.
 ☐ Break out big stuff and create smaller components.
@@ -12,6 +11,7 @@ If it feels necessary
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ Account deleted when tied to a timer, generates error, delete account should also remove all accounts bound to a timer, and the timer component should know this. @done(2017-07-20 22:37)
   ✔ Formatted timestamps on activites (currently bugs out the dropdown, commented for now). @done(2017-07-18 17:41)
   ✔ Add delete account/activity to edit components. @done(2017-07-16 22:09)
   ✔ Input on activities (look at editaccount validation.) @done(2017-07-13 11:35)

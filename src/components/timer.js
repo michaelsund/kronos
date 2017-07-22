@@ -205,7 +205,6 @@ class Timer extends React.Component {
                 <Col sm={6} className={styles.buttonRow}>
                   {this.props.timers[this.props.timerIndex].running ? (
                     <IconButton
-                      className={styles.playPauseButtons}
                       tooltip="Pause"
                       tooltipPosition="top-center"
                       onClick={() => { this.startPauseTimer(); }}
@@ -214,7 +213,6 @@ class Timer extends React.Component {
                     </IconButton>
                   ) : (
                     <IconButton
-                      className={styles.playPauseButtons}
                       tooltip="Start"
                       tooltipPosition="top-center"
                       onClick={() => { this.startPauseTimer(); }}

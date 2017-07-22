@@ -1,5 +1,6 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"optionalDependencies": false}] */
 import { app, BrowserWindow, ipcMain } from 'electron';
+import PdfPrinter from 'pdfmake';
 
 let mainWindow;
 
@@ -14,6 +15,24 @@ ipcMain.on('close-main-window', (event, arg) => {
 
 ipcMain.on('minimize-main-window', (event, arg) => {
   BrowserWindow.getFocusedWindow().minimize();
+});
+
+ipcMain.on('print', (event, data, path) => {
+  const fonts = {
+    Roboto: {
+      normal: 'fonts/Roboto-Regular.ttf',
+      bold: 'fonts/Roboto-Medium.ttf',
+      italics: 'fonts/Roboto-Italic.ttf',
+      bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+    }
+  };
+
+  const printer = new PdfPrinter(fonts);
+  const fs = require('fs');
+
+  const pdfDoc = printer.createPdfKitDocument(JSON.parse(data));
+  pdfDoc.pipe(fs.createWriteStream(path));
+  pdfDoc.end();
 });
 
 function createWindow() {

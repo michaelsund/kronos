@@ -32,9 +32,11 @@ export default class AccountList extends React.Component {
                 <ListItem
                   key={i}
                   leftAvatar={
-                    <Avatar>
-                      {account.name[0].toUpperCase()}
-                    </Avatar>
+                    <div>
+                      <Avatar>
+                        {account.name[0].toUpperCase()}
+                      </Avatar>
+                    </div>
                   }
                   primaryText={account.name}
                   secondaryText={

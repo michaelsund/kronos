@@ -11,6 +11,7 @@ import SelectField from 'material-ui/SelectField';
 import { Container, Row, Col } from 'react-grid-system';
 import IconButton from 'material-ui/IconButton';
 import IconAdd from 'material-ui/svg-icons/content/add';
+import CreatePdf from './createpdf';
 import * as actions from '../actions';
 
 import styles from '../assets/css/editaccount.css';
@@ -154,6 +155,7 @@ class EditAccount extends React.Component {
                 secondary
                 onTouchTap={this.handleDeleteAccount}
               />
+              <CreatePdf accountIndex={this.state.accountIndex} />
               <FlatButton
                 label="Cancel"
                 onTouchTap={this.closeDialog}
