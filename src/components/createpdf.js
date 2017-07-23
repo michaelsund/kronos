@@ -100,13 +100,13 @@ class CreatePdf extends React.Component {
       >
         <Container>
           <Row>
-            <Col sm={6}>
+            <Col sm={12}>
               <FlatButton
                 label="Save report to"
                 onTouchTap={() => { this.getFilePath(); }}
                 primary
               />
-              <span>{this.state.path}</span>
+              <p>{this.state.path}</p>
             </Col>
           </Row>
         </Container>
