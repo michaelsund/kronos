@@ -1,4 +1,3 @@
-☐ Createpdf should show a modal on button click to select the path to save.
 ☐ pdf table formatting, and counting up total hours + minutes + debit if activated for account.
 
 If it feels necessary
@@ -10,6 +9,7 @@ If it feels necessary
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ Createpdf should show a modal on button click to select the path to save. @done(2017-07-23 16:35)
   ✔ Account deleted when tied to a timer, generates error, delete account should also remove all accounts bound to a timer, and the timer component should know this. @done(2017-07-20 22:37)
   ✔ Formatted timestamps on activites (currently bugs out the dropdown, commented for now). @done(2017-07-18 17:41)
   ✔ Add delete account/activity to edit components. @done(2017-07-16 22:09)
