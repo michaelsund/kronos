@@ -1,5 +1,5 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"optionalDependencies": false}] */
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import PdfPrinter from 'pdfmake';
 
 let mainWindow;
@@ -7,6 +7,12 @@ let mainWindow;
 ipcMain.on('export', (event, arg) => {
   // TODO: Can receive more than one arg? see importexport.js
   console.log(arg);
+});
+
+ipcMain.on('get-path', (event, arg) => {
+  // dialog.showOpenDialog({ properties: ['openFile'] });
+  console.log('got path request, sending back');
+  ipcMain.send('set-path', { msg: 'hello from main process' });
 });
 
 ipcMain.on('close-main-window', (event, arg) => {

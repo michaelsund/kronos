@@ -1,3 +1,11 @@
 .icons {
   color: #333 !important;
 }
+
+.rowPad {
+  padding-top: 10px;
+}
+
+.pdfButton {
+  padding-left: 5px !important;
+}

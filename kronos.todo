@@ -1,6 +1,5 @@
-☐ Save a pdf document for specified account with tickboxes for activites to include and path to save + filename.
+☐ Createpdf should show a modal on button click to select the path to save.
 ☐ pdf table formatting, and counting up total hours + minutes + debit if activated for account.
-☐ CreatePdf should be better placed inside editAccount, too many buttons allready.
 
 If it feels necessary
 ☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.

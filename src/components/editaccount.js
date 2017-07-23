@@ -11,6 +11,7 @@ import SelectField from 'material-ui/SelectField';
 import { Container, Row, Col } from 'react-grid-system';
 import IconButton from 'material-ui/IconButton';
 import IconAdd from 'material-ui/svg-icons/content/add';
+import IconDownload from 'material-ui/svg-icons/file/file-download';
 import CreatePdf from './createpdf';
 import * as actions from '../actions';
 
@@ -142,9 +143,18 @@ class EditAccount extends React.Component {
     this.closeDialog();
   }
 
+  handleOpenCreatePdf = () => {
+    this.closeDialog();
+    this.createPdf.openDialog();
+  }
+
   render() {
     return (
       <div>
+        <CreatePdf
+          accountIndex={this.state.accountIndex}
+          onRef={ref => (this.createPdf = ref)}
+        />
         <Dialog
           title="Edit account"
           modal={false}
@@ -155,7 +165,6 @@ class EditAccount extends React.Component {
                 secondary
                 onTouchTap={this.handleDeleteAccount}
               />
-              <CreatePdf accountIndex={this.state.accountIndex} />
               <FlatButton
                 label="Cancel"
                 onTouchTap={this.closeDialog}
@@ -215,22 +224,32 @@ class EditAccount extends React.Component {
                   })}
                 </SelectField>
               </Col>
-              <Row>
-                <Col sm={6}>
-                  <Checkbox
-                    label="Debits on hour started"
-                    checked={this.state.debitOnHourStarted}
-                    onCheck={(e) => { this.handleInputs(e, 'debitOnHourStarted'); }}
-                  />
-                </Col>
-                <Col sm={6}>
-                  <Checkbox
-                    label="Show debit in report"
-                    checked={this.state.showDebitInReport}
-                    onCheck={(e) => { this.handleInputs(e, 'showDebitInReport'); }}
-                  />
-                </Col>
-              </Row>
+            </Row>
+            <Row className={styles.rowPad}>
+              <Col sm={6}>
+                <Checkbox
+                  label="Debits on hour started"
+                  checked={this.state.debitOnHourStarted}
+                  onCheck={(e) => { this.handleInputs(e, 'debitOnHourStarted'); }}
+                />
+              </Col>
+              <Col sm={6}>
+                <Checkbox
+                  label="Show debit in report"
+                  checked={this.state.showDebitInReport}
+                  onCheck={(e) => { this.handleInputs(e, 'showDebitInReport'); }}
+                />
+              </Col>
+            </Row>
+            <Row className={styles.rowPad}>
+              <Col sm={6}>
+                <RaisedButton
+                  label="Generate pdf"
+                  secondary
+                  onTouchTap={this.handleOpenCreatePdf}
+                  icon={<IconDownload />}
+                />
+              </Col>
             </Row>
           </Container>
         </Dialog>
