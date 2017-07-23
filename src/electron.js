@@ -10,9 +10,15 @@ ipcMain.on('export', (event, arg) => {
 });
 
 ipcMain.on('get-path', (event, arg) => {
-  // dialog.showOpenDialog({ properties: ['openFile'] });
-  console.log('got path request, sending back');
-  ipcMain.send('set-path', { msg: 'hello from main process' });
+  const path = dialog.showSaveDialog({
+    title: 'Save pdf report',
+    defaultPath: 'Kronos-Report.pdf',
+    filters: [
+      { name: 'Pdf dockuments', extensions: ['pdf'] },
+      { name: 'All Files', extensions: ['*'] }
+    ]
+  });
+  mainWindow.webContents.send('set-path', { path });
 });
 
 ipcMain.on('close-main-window', (event, arg) => {

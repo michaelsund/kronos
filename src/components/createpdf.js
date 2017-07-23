@@ -11,11 +11,6 @@ import * as actions from '../actions';
 import styles from '../assets/css/createpdf.css';
 
 const ipc = window.require('electron').ipcRenderer;
-ipc.on('set-path', (event, data) => {
-  console.log('revieved data');
-  console.log(data);
-});
-
 
 const mapStateToProps = (state) => {
   const props = {
@@ -35,6 +30,9 @@ class CreatePdf extends React.Component {
 
   componentDidMount = () => {
     this.props.onRef(this);
+    ipc.on('set-path', (event, data) => {
+      this.setState({ path: data.path });
+    });
   }
 
   componentWillUnmount() {
@@ -42,7 +40,6 @@ class CreatePdf extends React.Component {
   }
 
   getFilePath = () => {
-    console.log('sending request of path');
     ipc.send('get-path');
   }
 
@@ -70,6 +67,7 @@ class CreatePdf extends React.Component {
       };
 
       ipc.send('print', JSON.stringify(layout), this.state.path);
+      this.closeDialog();
     }
   }
 
@@ -94,7 +92,7 @@ class CreatePdf extends React.Component {
             />
             <FlatButton
               label="Ok"
-              onTouchTap={this.savePdf}
+              onTouchTap={() => { this.savePdf(); }}
             />
           </div>
         }
@@ -103,12 +101,12 @@ class CreatePdf extends React.Component {
         <Container>
           <Row>
             <Col sm={6}>
-              <span>{this.state.path}</span>
               <FlatButton
-                label="Choose"
+                label="Save report to"
                 onTouchTap={() => { this.getFilePath(); }}
                 primary
               />
+              <span>{this.state.path}</span>
             </Col>
           </Row>
         </Container>
