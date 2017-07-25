@@ -10,6 +10,25 @@ import * as actions from '../actions';
 
 import styles from '../assets/css/createpdf.css';
 
+const pdfStyles = {
+  header: {
+    fontSize: 18,
+    bold: true,
+    alignment: 'right',
+    margin: [0, 190, 0, 80]
+  },
+  subheader: {
+    fontSize: 15,
+    bold: true
+  },
+  quote: {
+    italics: true
+  },
+  small: {
+    fontSize: 8
+  }
+};
+
 const ipc = window.require('electron').ipcRenderer;
 
 const mapStateToProps = (state) => {
@@ -55,8 +74,14 @@ class CreatePdf extends React.Component {
 
       const layout = {
         content: [
-          { text: `Report for ${this.props.accounts[this.props.accountIndex].name}` },
-          'and some other text',
+          {
+            stack: [
+              'This header has both top and bottom margins defined',
+              { text: `${this.props.accounts[this.props.accountIndex].name}` }
+            ],
+            style: pdfStyles.header
+          },
+          { text: `${this.props.accounts[this.props.accountIndex].activities.length} activities logged.`, style: pdfStyles.quote },
           { text: 'Activities' },
           {
             table: {
@@ -91,7 +116,7 @@ class CreatePdf extends React.Component {
               onTouchTap={this.closeDialog}
             />
             <FlatButton
-              label="Ok"
+              label="Create report"
               onTouchTap={() => { this.savePdf(); }}
             />
           </div>
