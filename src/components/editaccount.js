@@ -41,7 +41,7 @@ class EditAccount extends React.Component {
       description: '',
       additionalNote: '',
       currency: '',
-      debitOnHourStarted: false,
+      accountCost: 0,
       showDebitInReport: false,
       currencies: ['kr', '€', '$', '£']
     };
@@ -80,7 +80,7 @@ class EditAccount extends React.Component {
         additionalNote:
           this.upperCaseIt(this.state.additionalNote),
         currency: this.state.currency,
-        debitOnHourStarted: this.state.debitOnHourStarted,
+        accountCost: this.state.accountCost,
         showDebitInReport: this.state.showDebitInReport
       }
     );
@@ -96,7 +96,7 @@ class EditAccount extends React.Component {
       description: accountObj.description,
       additionalNote: accountObj.additionalNote,
       currency: accountObj.currency,
-      debitOnHourStarted: accountObj.debitOnHourStarted,
+      accountCost: accountObj.accountCost,
       showDebitInReport: accountObj.showDebitInReport,
     });
   }
@@ -120,12 +120,8 @@ class EditAccount extends React.Component {
       case 'currency':
         this.setState({ currency: e.target.textContent });
         break;
-      case 'debitOnHourStarted':
-        if (this.state.debitOnHourStarted) {
-          this.setState({ debitOnHourStarted: false });
-        } else {
-          this.setState({ debitOnHourStarted: true });
-        }
+      case 'accountCost':
+        this.setState({ accountCost: e.target.value });
         break;
       case 'showDebitInReport':
         if (this.state.showDebitInReport) {
@@ -227,10 +223,10 @@ class EditAccount extends React.Component {
             </Row>
             <Row className={styles.rowPad}>
               <Col sm={6}>
-                <Checkbox
-                  label="Debits on hour started"
-                  checked={this.state.debitOnHourStarted}
-                  onCheck={(e) => { this.handleInputs(e, 'debitOnHourStarted'); }}
+                <TextField
+                  value={this.state.accountCost}
+                  onChange={(e) => { this.handleInputs(e, 'accountCost'); }}
+                  floatingLabelText="Cost per hour"
                 />
               </Col>
               <Col sm={6}>
@@ -244,7 +240,7 @@ class EditAccount extends React.Component {
             <Row className={styles.rowPad}>
               <Col sm={6}>
                 <RaisedButton
-                  label="Generate pdf"
+                  label="Save report"
                   secondary
                   onTouchTap={this.handleOpenCreatePdf}
                   icon={<IconDownload />}

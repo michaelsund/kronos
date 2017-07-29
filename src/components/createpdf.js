@@ -43,7 +43,8 @@ class CreatePdf extends React.Component {
     super(props);
     this.state = {
       open: false,
-      path: ''
+      path: '',
+      totalReportCost: 0
     };
   }
 
@@ -62,18 +63,59 @@ class CreatePdf extends React.Component {
     ipc.send('get-path');
   }
 
+  calcTime = (activities) => {
+    let staticSeconds = 0;
+    for (const act of activities) {
+      staticSeconds += act.staticSeconds;
+    }
+    const hours = Math.floor(staticSeconds / (60 * 60));
+    const divisorForMinutes = staticSeconds % (60 * 60);
+    const minutes = Math.floor(divisorForMinutes / 60);
+    return `${hours} hours and ${minutes} minutes`;
+  };
+
+  calcCostPerActivity = (accountCost, activity) => {
+    let totalCost = 0.0;
+    totalCost = (parseFloat(accountCost) * activity.hours);
+    if (activity.minutes > 0) {
+      totalCost += parseFloat(accountCost);
+    }
+    this.setState({ totalReportCost: (this.state.totalReportCost + totalCost) });
+    return totalCost;
+  }
+
   savePdf = () => {
     if (this.state.path !== '') {
       // Create the makepdf layout
+      const accountCost = this.props.accounts[this.props.accountIndex].accountCost;
+      let res;
       let body = this.props.accounts[this.props.accountIndex].activities.map((act) => {
-        const res = [act.name, { text: `${act.hours} hours ${act.minutes} minutes` }, { text: '1 $', alignment: 'right' }];
+        if (this.props.accounts[this.props.accountIndex].showDebitInReport) {
+          res = [
+            act.name,
+            { text: `${act.hours}:${act.minutes}` },
+            { text: `${this.calcCostPerActivity(accountCost, act)} ${this.props.accounts[this.props.accountIndex].currency}`, alignment: 'right' }
+          ];
+        } else {
+          res = [
+            act.name,
+            { text: `${act.hours}:${act.minutes}` },
+          ];
+        }
         return res;
       });
 
-      body = [
-        ['Activity name', 'Time', { text: 'Cost', alignment: 'right' }],
-        ...body
-      ];
+      if (this.props.accounts[this.props.accountIndex].showDebitInReport) {
+        body = [
+          ['Activity name', 'Time hh:mm', { text: 'Cost', alignment: 'right' }],
+          ...body
+        ];
+      } else {
+        body = [
+          ['Activity name', 'Time hh:mm'],
+          ...body
+        ];
+      }
 
       const layout = {
         content: [
@@ -83,15 +125,22 @@ class CreatePdf extends React.Component {
             ],
             style: pdfStyles.header
           },
-          { text: `${this.props.accounts[this.props.accountIndex].activities.length} activities logged.`, style: pdfStyles.quote },
-          { text: 'Activities' },
           {
+            text: `${this.props.accounts[this.props.accountIndex].activities.length} activities logged with a total time of ${this.calcTime(this.props.accounts[this.props.accountIndex].activities)}`,
+            style: pdfStyles.quote
+          },
+          {
+            layout: 'headerLineOnly',
             table: {
-              layout: 'headerLineOnly',
-              widths: [100, '*', 200],
+              widths: [350, 100, 50],
               body
             }
-          }
+          },
+          this.props.accounts[this.props.accountIndex].showDebitInReport ? (
+            { text: `Total cost: ${this.state.totalReportCost} ${this.props.accounts[this.props.accountIndex].currency}`, style: pdfStyles.quote }
+          ) : (
+            null
+          )
         ]
       };
 

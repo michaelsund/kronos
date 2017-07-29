@@ -34,7 +34,7 @@ class AddAccount extends React.Component {
       description: '',
       additionalNote: '',
       currency: '$',
-      debitOnHourStarted: true,
+      accountCost: 0,
       showDebitInReport: true,
       currencies: ['kr', '€', '$', '£']
     };
@@ -68,7 +68,7 @@ class AddAccount extends React.Component {
         additionalNote:
           this.upperCaseIt(this.state.additionalNote),
         currency: this.state.currency,
-        debitOnHourStarted: this.state.debitOnHourStarted,
+        accountCost: this.state.accountCost,
         showDebitInReport: this.state.showDebitInReport,
         activities: []
       });
@@ -78,7 +78,7 @@ class AddAccount extends React.Component {
         description: '',
         additionalNote: '',
         currency: '$',
-        debitOnHourStarted: true,
+        accountCost: 0.0,
         showDebitInReport: true
       });
     }
@@ -107,12 +107,8 @@ class AddAccount extends React.Component {
       case 'currency':
         this.setState({ currency: e.target.textContent });
         break;
-      case 'debitOnHourStarted':
-        if (this.state.debitOnHourStarted) {
-          this.setState({ debitOnHourStarted: false });
-        } else {
-          this.setState({ debitOnHourStarted: true });
-        }
+      case 'accountCost':
+        this.setState({ accountCost: e.target.value });
         break;
       case 'showDebitInReport':
         if (this.state.showDebitInReport) {
@@ -187,7 +183,7 @@ class AddAccount extends React.Component {
               <Col sm={6}>
                 <SelectField
                   floatingLabelFixed
-                  floatingLabelText="Move to account"
+                  floatingLabelText="Currency"
                   value={this.state.currency}
                   onChange={(e) => { this.handleInputs(e, 'currency'); }}
                 >
@@ -203,22 +199,20 @@ class AddAccount extends React.Component {
                   })}
                 </SelectField>
               </Col>
-              <Row>
-                <Col sm={6}>
-                  <Checkbox
-                    label="Debit on hour started"
-                    checked={this.state.debitOnHourStarted}
-                    onCheck={(e) => { this.handleInputs(e, 'debitOnHourStarted'); }}
-                  />
-                </Col>
-                <Col sm={6}>
-                  <Checkbox
-                    label="Show debit in report"
-                    checked={this.state.showDebitInReport}
-                    onCheck={(e) => { this.handleInputs(e, 'showDebitInReport'); }}
-                  />
-                </Col>
-              </Row>
+              <Col sm={6}>
+                <TextField
+                  value={this.state.accountCost}
+                  onChange={(e) => { this.handleInputs(e, 'accountCost'); }}
+                  floatingLabelText="Cost per hour"
+                />
+              </Col>
+              <Col sm={6}>
+                <Checkbox
+                  label="Show debit in report"
+                  checked={this.state.showDebitInReport}
+                  onCheck={(e) => { this.handleInputs(e, 'showDebitInReport'); }}
+                />
+              </Col>
             </Row>
           </Container>
         </Dialog>

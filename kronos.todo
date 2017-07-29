@@ -1,6 +1,7 @@
-☐ pdf table formatting, and counting up total hours + minutes + debit if activated for account.
-☐ activity hourly cost, cant be inherited if not set from general account cost per hour.
+☐ pdf table formatting, and counting up total hours + minutes + cost.
+☐ activity hourly cost (new field on timer aswell), cant be inherited if not set from general account cost per hour.
 ☐ Account search bar, displays accounts or accounts with matching activities.
+☐ Navbar should have a "help" page explaining how timers/accounts/activities work woth costs and whatnot.
 
 If it feels necessary
 ☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.

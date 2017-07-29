@@ -79,7 +79,7 @@ export default class AccountList extends React.Component {
           </List>
         ) : (
           <div className={styles.accountsEmptyText}>
-            Oh dear, no accounts yet? better create one!
+            Oh dear, no accounts yet? better add one!
           </div>
         )}
       </div>
