@@ -14,8 +14,8 @@ const pdfStyles = {
   header: {
     fontSize: 18,
     bold: true,
-    alignment: 'right',
-    margin: [0, 190, 0, 80]
+    alignment: 'center',
+    // margin: [0, 190, 0, 80]
   },
   subheader: {
     fontSize: 15,
@@ -66,18 +66,20 @@ class CreatePdf extends React.Component {
     if (this.state.path !== '') {
       // Create the makepdf layout
       let body = this.props.accounts[this.props.accountIndex].activities.map((act) => {
-        const res = [act.name, act.hours, act.minutes];
+        const res = [act.name, { text: `${act.hours} hours ${act.minutes} minutes` }, { text: '1 $', alignment: 'right' }];
         return res;
       });
 
-      body = [['Activity name', 'Hours', 'Minutes'], ...body];
+      body = [
+        ['Activity name', 'Time', { text: 'Cost', alignment: 'right' }],
+        ...body
+      ];
 
       const layout = {
         content: [
           {
             stack: [
-              'This header has both top and bottom margins defined',
-              { text: `${this.props.accounts[this.props.accountIndex].name}` }
+              { text: `${this.props.accounts[this.props.accountIndex].name} time report` }
             ],
             style: pdfStyles.header
           },
@@ -85,6 +87,8 @@ class CreatePdf extends React.Component {
           { text: 'Activities' },
           {
             table: {
+              layout: 'headerLineOnly',
+              widths: [100, '*', 200],
               body
             }
           }

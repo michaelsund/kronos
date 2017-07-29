@@ -1,4 +1,6 @@
 ☐ pdf table formatting, and counting up total hours + minutes + debit if activated for account.
+☐ activity hourly cost, cant be inherited if not set from general account cost per hour.
+☐ Account search bar, displays accounts or accounts with matching activities.
 
 If it feels necessary
 ☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.
