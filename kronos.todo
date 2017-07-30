@@ -1,9 +1,7 @@
-☐ pdf table formatting, and counting up total hours + minutes + cost.
 ☐ activity hourly cost (new field on timer aswell), cant be inherited if not set from general account cost per hour.
-☐ Account search bar, displays accounts or accounts with matching activities.
-☐ Navbar should have a "help" page explaining how timers/accounts/activities work woth costs and whatnot.
 
 If it feels necessary
+☐ CreatedAt for activity change and display in editActivity and display in pdf report.
 ☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.
 ☐ Total spent time per account on accounts view.
 ☐ Rewrite all css to sass, and inherit stuff such as icon colors throughout stylesheets.
@@ -12,6 +10,8 @@ If it feels necessary
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ totalCost in pdf report. @done(2017-07-30 15:00)
+  ✔ pdf table formatting (document element margins), and counting up total hours + minutes + cost. @done(2017-07-30 12:22)
   ✔ Createpdf should show a modal on button click to select the path to save. @done(2017-07-23 16:35)
   ✔ Account deleted when tied to a timer, generates error, delete account should also remove all accounts bound to a timer, and the timer component should know this. @done(2017-07-20 22:37)
   ✔ Formatted timestamps on activites (currently bugs out the dropdown, commented for now). @done(2017-07-18 17:41)
