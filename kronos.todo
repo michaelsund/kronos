@@ -1,4 +1,4 @@
-☐ activity hourly cost (new field on timer aswell), cant be inherited if not set from general account cost per hour.
+☐ checkboxes top margin (see editactivity.css)
 
 If it feels necessary
 ☐ CreatedAt for activity change and display in editActivity and display in pdf report.
@@ -10,6 +10,7 @@ If it feels necessary
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ activity hourly cost, cant be inherited if not set from general account cost per hour. @done(2017-07-31 21:55)
   ✔ totalCost in pdf report. @done(2017-07-30 15:00)
   ✔ pdf table formatting (document element margins), and counting up total hours + minutes + cost. @done(2017-07-30 12:22)
   ✔ Createpdf should show a modal on button click to select the path to save. @done(2017-07-23 16:35)

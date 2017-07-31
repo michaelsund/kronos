@@ -147,7 +147,9 @@ class Timer extends React.Component {
               hours: timer.hours,
               minutes: timer.minutes,
               seconds: timer.seconds,
-              createdAt: this.state.createdAt
+              createdAt: this.state.createdAt,
+              useActivityCost: false,
+              activityCost: 0
             }
           );
           this.setState({ timerWasSaved: true });

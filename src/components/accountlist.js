@@ -62,7 +62,7 @@ export default class AccountList extends React.Component {
                           }
                           secondaryText={
                             <p>
-                              Created at {moment(act.createdAt).format('d MMM YYYY')}
+                              Created at {moment(act.createdAt).format('D MMM YYYY')}
                             </p>
                           }
                         />

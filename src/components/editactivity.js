@@ -57,7 +57,9 @@ class EditActivity extends React.Component {
       minutes: 0,
       seconds: 0,
       staticSeconds: 0,
-      createdAt: null
+      createdAt: null,
+      useActivityCost: false,
+      activityCost: 0
     };
   }
 
@@ -94,7 +96,9 @@ class EditActivity extends React.Component {
         minutes: this.state.minutes,
         seconds: this.state.seconds,
         staticSeconds: this.state.staticSeconds,
-        createdAt: this.state.createdAt
+        createdAt: this.state.createdAt,
+        useActivityCost: this.state.useActivityCost,
+        activityCost: this.state.activityCost
       },
       this.state.moveToAccountIndex
     );
@@ -111,7 +115,9 @@ class EditActivity extends React.Component {
       minutes: activityObj.minutes,
       seconds: activityObj.seconds,
       staticSeconds: activityObj.staticSeconds,
-      createdAt: activityObj.createdAt
+      createdAt: activityObj.createdAt,
+      useActivityCost: activityObj.useActivityCost,
+      activityCost: activityObj.activityCost
     });
   }
 
@@ -119,20 +125,32 @@ class EditActivity extends React.Component {
     this.setState({ open: false });
   }
 
-  handleInputs = (e, index, sender) => {
+  handleInputs = (e, sender) => {
     switch (sender) {
       case 'name':
         this.setState({ name: e.target.value });
         this.validateInput(e.target.value);
         break;
       case 'hours':
-        if (e.target.value > -1) {
+        if (e.target.value > -1 && e.target.value !== '') {
           this.setState({ hours: e.target.value });
         }
         break;
       case 'minutes':
-        if (e.target.value > -1) {
+        if (e.target.value > -1 && e.target.value !== '') {
           this.setState({ minutes: e.target.value });
+        }
+        break;
+      case 'activityCost':
+        if (e.target.value > -1 && e.target.value !== '') {
+          this.setState({ activityCost: e.target.value });
+        }
+        break;
+      case 'useActivityCost':
+        if (this.state.useActivityCost) {
+          this.setState({ useActivityCost: false });
+        } else {
+          this.setState({ useActivityCost: true });
         }
         break;
       default:
@@ -182,7 +200,7 @@ class EditActivity extends React.Component {
               <Col sm={6}>
                 <TextField
                   value={this.state.name}
-                  onChange={(e) => { this.handleInputs(e, null, 'name'); }}
+                  onChange={(e) => { this.handleInputs(e, 'name'); }}
                   floatingLabelText="Activity name (required)"
                 />
               </Col>
@@ -190,7 +208,7 @@ class EditActivity extends React.Component {
                 <TextField
                   type="number"
                   value={this.state.hours}
-                  onChange={(e) => { this.handleInputs(e, null, 'hours'); }}
+                  onChange={(e) => { this.handleInputs(e, 'hours'); }}
                   floatingLabelText="Hours"
                 />
               </Col>
@@ -198,11 +216,11 @@ class EditActivity extends React.Component {
                 <TextField
                   type="number"
                   value={this.state.minutes}
-                  onChange={(e) => { this.handleInputs(e, null, 'minutes'); }}
+                  onChange={(e) => { this.handleInputs(e, 'minutes'); }}
                   floatingLabelText="Minutes"
                 />
               </Col>
-              <Col sm={12}>
+              <Col sm={6}>
                 <SelectField
                   floatingLabelFixed
                   floatingLabelText="Move to account"
@@ -220,6 +238,23 @@ class EditActivity extends React.Component {
                     return row;
                   })}
                 </SelectField>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={6}>
+                <Checkbox
+                  label="Override account cost"
+                  checked={this.state.useActivityCost}
+                  onCheck={(e) => { this.handleInputs(e, 'useActivityCost'); }}
+                />
+              </Col>
+              <Col sm={6}>
+                <TextField
+                  type="number"
+                  value={this.state.activityCost}
+                  onChange={(e) => { this.handleInputs(e, 'activityCost'); }}
+                  floatingLabelText="Activity cost/started hour"
+                />
               </Col>
             </Row>
           </Container>

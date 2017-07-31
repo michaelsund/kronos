@@ -203,7 +203,7 @@ class AddAccount extends React.Component {
                 <TextField
                   value={this.state.accountCost}
                   onChange={(e) => { this.handleInputs(e, 'accountCost'); }}
-                  floatingLabelText="Cost per hour"
+                  floatingLabelText="Accountwide cost/started hour"
                 />
               </Col>
               <Col sm={6}>

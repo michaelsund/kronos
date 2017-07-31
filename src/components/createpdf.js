@@ -75,10 +75,17 @@ class CreatePdf extends React.Component {
   };
 
   calcCostPerActivity = (accountCost, activity) => {
-    let totalCost = 0.0;
-    totalCost = (parseFloat(accountCost) * activity.hours);
-    if (activity.minutes > 0) {
-      totalCost += parseFloat(accountCost);
+    let totalCost = 0;
+    if (activity.useActivityCost) {
+      totalCost = (parseFloat(activity.activityCost) * activity.hours);
+      if (activity.minutes > 0) {
+        totalCost += parseFloat(activity.activityCost);
+      }
+    } else {
+      totalCost = (parseFloat(accountCost) * activity.hours);
+      if (activity.minutes > 0) {
+        totalCost += parseFloat(accountCost);
+      }
     }
     totalReportCost += totalCost;
     return totalCost;
@@ -153,6 +160,8 @@ class CreatePdf extends React.Component {
       ipc.send('print', JSON.stringify(layout), this.state.path);
       this.closeDialog();
     }
+    // Reset total report cost for next run.
+    totalReportCost = 0;
   }
 
   openDialog = () => {
