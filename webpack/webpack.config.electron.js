@@ -7,6 +7,7 @@ const srcPath = path.join(rootPath, '/src/');
 const distPath = path.join(rootPath, '/build/');
 
 const webpackConfig = {
+  target: 'electron',
   devtool: false,
   entry: {
     main: ['babel-polyfill', srcPath + 'electron']
@@ -16,8 +17,17 @@ const webpackConfig = {
     filename: 'main.js'
   },
   module: {
+    exclude: /node_modules/,
     loaders: [
-      { test: /\.(jsx|js)$/, include: srcPath, loaders: ['babel']}
+      {
+        test: /\.(jsx|js)$/,
+        include: srcPath,
+        loaders: ['babel']
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      }
     ],
   },
   plugins: [

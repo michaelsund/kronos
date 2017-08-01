@@ -14,10 +14,10 @@ fs.writeFile('./build/package.json', JSON.stringify(pkg), function(err) {
     } else {
       packager({
         dir: './build',
-        arch: 'all', // ia32, x64, all
-        platform: 'all', // linux, win32, darwin, mas, all
-        'app-copyright': '',
-        'app-version': pkg.version,
+        arch: 'x64', // ia32, x64, all
+        platform: 'linux', // linux, win32, darwin, mas, all
+        // 'app-copyright': '',
+        // 'app-version': pkg.version,
         prune: false,
         out: './release'
       }, function(err){
