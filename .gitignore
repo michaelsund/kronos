@@ -16,7 +16,5 @@ dist
 public
 release
 
-yarn.lock
-
 webpack-assets.json
 webpack-stats.json
