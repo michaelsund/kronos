@@ -208,6 +208,7 @@ class AddAccount extends React.Component {
               </Col>
               <Col sm={6}>
                 <Checkbox
+                  className={styles.checkbox}
                   label="Show debit in report"
                   checked={this.state.showDebitInReport}
                   onCheck={(e) => { this.handleInputs(e, 'showDebitInReport'); }}

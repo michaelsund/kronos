@@ -243,6 +243,7 @@ class EditActivity extends React.Component {
             <Row>
               <Col sm={6}>
                 <Checkbox
+                  className={styles.checkbox}
                   label="Override account cost"
                   checked={this.state.useActivityCost}
                   onCheck={(e) => { this.handleInputs(e, 'useActivityCost'); }}
@@ -253,7 +254,7 @@ class EditActivity extends React.Component {
                   type="number"
                   value={this.state.activityCost}
                   onChange={(e) => { this.handleInputs(e, 'activityCost'); }}
-                  floatingLabelText="Activity cost/started hour"
+                  floatingLabelText="Activity cost per started hour"
                 />
               </Col>
             </Row>
