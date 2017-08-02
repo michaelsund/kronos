@@ -68,7 +68,6 @@
     "concurrently": "^3.1.0",
     "material-ui": "^0.17.4",
     "moment": "^2.18.1",
-    "pdfmake": "^0.1.31",
     "prop-types": "^15.5.8",
     "react": "^15.5.0",
     "react-addons-update": "^15.6.0",

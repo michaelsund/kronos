@@ -1,4 +1,6 @@
 
+☐ Rewrite pdf printing and find a node module that builds with electron.
+
 If it feels necessary
 ☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.
 ☐ Total spent time per account on accounts view.
