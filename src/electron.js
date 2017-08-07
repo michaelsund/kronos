@@ -1,13 +1,10 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"optionalDependencies": false}] */
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import PdfPrinter from 'pdfmake';
+import fs from 'fs';
+import loadFonts from './assets/css/fontloader.css';
 
 let mainWindow;
-
-ipcMain.on('export', (event, arg) => {
-  // TODO: Can receive more than one arg? see importexport.js
-  console.log(arg);
-});
 
 ipcMain.on('get-path', (event, arg) => {
   const path = dialog.showSaveDialog({
@@ -32,16 +29,14 @@ ipcMain.on('minimize-main-window', (event, arg) => {
 ipcMain.on('print', (event, data, path) => {
   const fonts = {
     Roboto: {
-      normal: 'fonts/Roboto-Regular.ttf',
-      bold: 'fonts/Roboto-Medium.ttf',
-      italics: 'fonts/Roboto-Italic.ttf',
-      bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+      normal: 'assets/fonts/Roboto-Normal.ttf',
+      bold: 'assets/fonts/Roboto-Medium.ttf',
+      italics: 'assets/fonts/Roboto-Italics.ttf',
+      bolditalics: 'assets/fonts/Roboto-MediumItalic.ttf'
     }
   };
 
   const printer = new PdfPrinter(fonts);
-  const fs = require('fs');
-
   const pdfDoc = printer.createPdfKitDocument(JSON.parse(data));
   pdfDoc.pipe(fs.createWriteStream(path));
   pdfDoc.end();

@@ -166,7 +166,7 @@ class EditAccount extends React.Component {
                 onTouchTap={this.closeDialog}
               />
               <FlatButton
-                label="Ok"
+                label="Save"
                 disabled={this.state.formNotValid}
                 onTouchTap={this.handleEditAccount}
               />
