@@ -2,7 +2,6 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import PdfPrinter from 'pdfmake';
 import fs from 'fs';
-import loadFonts from './assets/css/fontloader.css';
 
 let mainWindow;
 
@@ -29,10 +28,10 @@ ipcMain.on('minimize-main-window', (event, arg) => {
 ipcMain.on('print', (event, data, path) => {
   const fonts = {
     Roboto: {
-      normal: 'assets/fonts/Roboto-Normal.ttf',
-      bold: 'assets/fonts/Roboto-Medium.ttf',
-      italics: 'assets/fonts/Roboto-Italics.ttf',
-      bolditalics: 'assets/fonts/Roboto-MediumItalic.ttf'
+      normal: 'fonts/Roboto-Regular.ttf',
+      bold: 'fonts/Roboto-Medium.ttf',
+      italics: 'fonts/Roboto-Italic.ttf',
+      bolditalics: 'fonts/Roboto-MediumItalic.ttf'
     }
   };
 
