@@ -1,13 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
-
+const StringReplacePlugin = require('string-replace-webpack-plugin');
 const config = require('../src/config');
 const rootPath = path.resolve(__dirname, '../');
 const srcPath = path.join(rootPath, '/src/');
+const fontPath = path.join(rootPath, '/fonts/');
 const distPath = path.join(rootPath, '/build/');
 
 const webpackConfig = {
   target: 'electron',
+  context: path.resolve(__dirname, '..'),
   devtool: false,
   entry: {
     main: ['babel-polyfill', srcPath + 'electron']
@@ -27,7 +29,38 @@ const webpackConfig = {
       {
         test: /\.json$/,
         loader: 'json-loader'
-      }
+      },
+      {
+        test: /\.(ttf|eot)(\?[\s\S]+)?$/,
+        loader: 'file?name=fonts/[name].[ext]'
+      },
+      {
+        test: /pdfkit[\/\\]js[\/\\]mixins[\/\\]fonts.js$/, loader: StringReplacePlugin.replace({
+  				replacements: [
+  					{
+  						pattern: 'return this.font(\'Helvetica\');',
+  						replacement: function () {
+  							return '';
+  						}
+  					}
+		      ]
+        })
+			},
+			{
+        test: /fontkit[\/\\]index.js$/, loader: StringReplacePlugin.replace({
+  				replacements: [
+  					{
+  						pattern: /fs\./g,
+  						replacement: function () {
+  							return 'require(\'fs\').';
+  						}
+  					}
+		      ]
+        })
+			},
+      {enforce: 'post', test: /fontkit[\/\\]index.js$/, loader: "transform?brfs"},
+    	{enforce: 'post', test: /unicode-properties[\/\\]index.js$/, loader: "transform?brfs"},
+    	{enforce: 'post', test: /linebreak[\/\\]src[\/\\]linebreaker.js/, loader: "transform?brfs"}
     ],
   },
   plugins: [
