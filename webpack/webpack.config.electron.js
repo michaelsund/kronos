@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const StringReplacePlugin = require('string-replace-webpack-plugin');
 const config = require('../src/config');
 const rootPath = path.resolve(__dirname, '../');
@@ -31,10 +32,6 @@ const webpackConfig = {
         loader: 'json-loader'
       },
       {
-        test: /\.(ttf|eot)(\?[\s\S]+)?$/,
-        loader: 'file?name=fonts/[name].[ext]'
-      },
-      {
         test: /pdfkit[\/\\]js[\/\\]mixins[\/\\]fonts.js$/, loader: StringReplacePlugin.replace({
   				replacements: [
   					{
@@ -64,6 +61,14 @@ const webpackConfig = {
     ],
   },
   plugins: [
+    new CopyWebpackPlugin([
+        {
+          from: 'fonts',
+          to: 'fonts',
+          force: true,
+          debug: true
+        },
+    ]),
     new webpack.DefinePlugin({
       'process.env':{
         'NODE_ENV': JSON.stringify('production')

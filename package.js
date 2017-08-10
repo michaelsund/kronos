@@ -15,7 +15,7 @@ fs.writeFile('./build/package.json', JSON.stringify(pkg), function(err) {
       packager({
         dir: './build',
         arch: 'x64', // ia32, x64, all
-        platform: 'linux', // linux, win32, darwin, mas, all
+        platform: 'win32', // linux, win32, darwin, mas, all
         // 'app-copyright': '',
         // 'app-version': pkg.version,
         prune: false,

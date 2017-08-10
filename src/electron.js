@@ -28,10 +28,10 @@ ipcMain.on('minimize-main-window', (event, arg) => {
 ipcMain.on('print', (event, data, path) => {
   const fonts = {
     Roboto: {
-      normal: 'fonts/Roboto-Regular.ttf',
-      bold: 'fonts/Roboto-Medium.ttf',
-      italics: 'fonts/Roboto-Italic.ttf',
-      bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+      normal: './fonts/Roboto-Regular.ttf',
+      bold: './fonts/Roboto-Medium.ttf',
+      italics: './fonts/Roboto-Italic.ttf',
+      bolditalics: './fonts/Roboto-MediumItalic.ttf'
     }
   };
 
