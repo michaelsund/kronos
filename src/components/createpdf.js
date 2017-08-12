@@ -44,14 +44,14 @@ class CreatePdf extends React.Component {
     super(props);
     this.state = {
       open: false,
-      path: ''
+      filePath: ''
     };
   }
 
   componentDidMount = () => {
     this.props.onRef(this);
     ipc.on('set-path', (event, data) => {
-      this.setState({ path: data.path });
+      this.setState({ filePath: data.filePath });
     });
   }
 
@@ -92,7 +92,7 @@ class CreatePdf extends React.Component {
   }
 
   savePdf = () => {
-    if (this.state.path !== '') {
+    if (this.state.filePath !== '') {
       // Create the makepdf layout
       const accountCost = this.props.accounts[this.props.accountIndex].accountCost;
       let res;
@@ -157,7 +157,7 @@ class CreatePdf extends React.Component {
         ]
       };
 
-      ipc.send('print', JSON.stringify(layout), this.state.path);
+      ipc.send('print', JSON.stringify(layout), this.state.filePath);
       this.closeDialog();
     }
     // Reset total report cost for next run.
@@ -199,7 +199,7 @@ class CreatePdf extends React.Component {
                 onTouchTap={() => { this.getFilePath(); }}
                 primary
               />
-              <p>{this.state.path}</p>
+              <p>{this.state.filePath}</p>
             </Col>
           </Row>
         </Container>

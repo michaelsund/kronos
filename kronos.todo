@@ -1,5 +1,6 @@
-
-☐ Rewrite pdf printing and find a node module that builds with electron.
+✔ fonts folder copy working after package on Win (work with ./fonts in electron.js) @done(2017-08-10 22:44)
+☐ fonts folder copy working after package on Osx (not working with ./fonts or /fonts or fonts)
+☐ fonts folder copy working after package on Linux
 
 If it feels necessary
 ☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.

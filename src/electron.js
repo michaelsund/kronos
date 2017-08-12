@@ -1,12 +1,13 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"optionalDependencies": false}] */
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import PdfPrinter from 'pdfmake';
+import path from 'path';
 import fs from 'fs';
 
 let mainWindow;
 
 ipcMain.on('get-path', (event, arg) => {
-  const path = dialog.showSaveDialog({
+  const filePath = dialog.showSaveDialog({
     title: 'Save pdf report',
     defaultPath: 'Kronos-Report.pdf',
     filters: [
@@ -14,7 +15,7 @@ ipcMain.on('get-path', (event, arg) => {
       { name: 'All Files', extensions: ['*'] }
     ]
   });
-  mainWindow.webContents.send('set-path', { path });
+  mainWindow.webContents.send('set-path', { filePath });
 });
 
 ipcMain.on('close-main-window', (event, arg) => {
@@ -25,19 +26,19 @@ ipcMain.on('minimize-main-window', (event, arg) => {
   BrowserWindow.getFocusedWindow().minimize();
 });
 
-ipcMain.on('print', (event, data, path) => {
+ipcMain.on('print', (event, data, filePath) => {
   const fonts = {
     Roboto: {
-      normal: './fonts/Roboto-Regular.ttf',
-      bold: './fonts/Roboto-Medium.ttf',
-      italics: './fonts/Roboto-Italic.ttf',
-      bolditalics: './fonts/Roboto-MediumItalic.ttf'
+      normal: path.join(__dirname, 'fonts/Roboto-Regular.ttf'),
+      bold: path.join(__dirname, 'fonts/Roboto-Medium.ttf'),
+      italics: path.join(__dirname, 'fonts/Roboto-Italic.ttf'),
+      bolditalics: path.join(__dirname, 'fonts/Roboto-MediumItalic.ttf'),
     }
   };
 
   const printer = new PdfPrinter(fonts);
   const pdfDoc = printer.createPdfKitDocument(JSON.parse(data));
-  pdfDoc.pipe(fs.createWriteStream(path));
+  pdfDoc.pipe(fs.createWriteStream(filePath));
   pdfDoc.end();
 });
 
