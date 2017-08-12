@@ -2,7 +2,7 @@ const fs = require('fs');
 const fse = require('fs-extra');
 const packager = require('electron-packager');
 
-const targetSystem = 'darwin' // linux, win32, darwin, mas, all
+const targetSystem = 'linux' // linux, win32, darwin, mas, all
 const pkg = {
   name: 'Kronos',
   productName: 'Kronos',
@@ -38,6 +38,9 @@ function copyFonts() {
         break;
       case 'win32':
         path = 'release/Kronos-win32-x64/fonts'
+        break;
+      case 'linux':
+        path = 'release/Kronos-linux-x64/resources/app/fonts'
         break;
       default:
     }
