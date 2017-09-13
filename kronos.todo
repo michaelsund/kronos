@@ -1,4 +1,5 @@
 ✔ fonts folder copy working after package on Win (work with ./fonts in electron.js) @done(2017-08-10 22:44)
+☐ Application icon (kronos logo) for osx/lin/win
 ☐ fonts folder copy working after package on Osx (not working with ./fonts or /fonts or fonts)
 ☐ fonts folder copy working after package on Linux
 

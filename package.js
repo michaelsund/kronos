@@ -2,7 +2,7 @@ const fs = require('fs');
 const fse = require('fs-extra');
 const packager = require('electron-packager');
 
-const targetSystem = 'linux' // linux, win32, darwin, mas, all
+const targetSystem = 'darwin' // linux, win32, darwin, mas, all
 const pkg = {
   name: 'Kronos',
   productName: 'Kronos',
