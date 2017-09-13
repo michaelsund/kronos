@@ -1,7 +1,5 @@
-✔ fonts folder copy working after package on Win (work with ./fonts in electron.js) @done(2017-08-10 22:44)
-☐ Application icon (kronos logo) for osx/lin/win
-☐ fonts folder copy working after package on Osx (not working with ./fonts or /fonts or fonts)
-☐ fonts folder copy working after package on Linux
+☐ Electron-packager for distribution.
+☐ Icons for distribution and for applications instead of react icons.
 
 If it feels necessary
 ☐ Import export component sends the current states to a local jsonfile of users choosing, or imports and overwrites the current states and replaces localStorage.
@@ -10,6 +8,9 @@ If it feels necessary
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+  ✔ fonts folder copy working after package on Win (work with ./fonts in electron.js) @done(2017-08-10 22:44)
+  ✔ fonts folder copy working after package on Osx (not working with ./fonts or /fonts or fonts) @done(2017-08-13 09:50)
+  ✔ fonts folder copy working after package on Linux @done(2017-08-13 09:50)
   ✔ checkboxes top margin (see editactivity.css) @done(2017-08-01 16:47)
   ✔ activity hourly cost, cant be inherited if not set from general account cost per hour. @done(2017-07-31 21:55)
   ✔ totalCost in pdf report. @done(2017-07-30 15:00)
