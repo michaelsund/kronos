@@ -74,7 +74,7 @@
     "linebreak": "^0.3.0",
     "lodash": "^4.17.4",
     "material-ui": "^0.17.4",
-    "moment": "^2.18.1",
+    "moment": "^2.29.4",
     "pdfkit": "^0.8.3",
     "pdfmake": "^0.1.31",
     "prop-types": "^15.5.8",
